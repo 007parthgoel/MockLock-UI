@@ -1,0 +1,1 @@
+export const fetchAllQueries='http://52.66.198.160:3018/api/v1/queries/all_queires';

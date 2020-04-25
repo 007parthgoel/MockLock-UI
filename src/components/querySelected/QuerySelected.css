@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+.QueryGrid {
+    width: 100%;
+    height: 30%;
+    overflow-y: auto;
+    background-color: darkgrey;
+    border: 1px solid black;
+    /* margin: 2px; */
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.QueryGrid_top{
+    margin: 0px;
+    height: auto;
+}
+
+.QueryGrid_image{
+    display: inline-block;
+    width: 15%;
+    height: 15vh;
+    margin: 5px;
+    background-image: url("../../images/avatar.jpg");
+    /* background-color: blueviolet; */
+    /* background-position: center; */
+    border-radius: 5px;
+    border: 1px solid lightgrey ;
+    background-position: left 40% top 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.QueryGrid_UserDetails {
+    vertical-align: top;
+    display: inline-block;
+    width: 50%;
+    height: 40%;
+    text-align: left;
+}
+
+.QueryGrid_Username{
+    font-size: 20px;
+    margin: 5px 0px;
+}
+
+.QueryGrid_Email {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 7px 0;
+}
+
+.QueryGrid_phone {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.QueryGrid_Date_Status{
+    display: inline-block;
+    text-align: right;
+    width: 30%;
+    height: 40%;
+    vertical-align: top;   
+    margin: 0px; 
+}
+
+.QueryGrid_Date {
+    padding: 5px;
+    background-color:rgba(84, 84, 180, 0.726);
+    width: fit-content;
+    text-align: right;
+    display: inline-block;
+}
+
+.QueryGrid_QueryStatus_Pending {
+    margin-top: 10px; 
+    color: red;
+    font-weight: bold;
+    font-size: 16px;    
+}
+
+.QueryGrid_bottom{
+    margin: 0px;
+    height: auto;
+}
+.QueryGrid_UserQueryTitle{
+    margin: 1px 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.QueryGrid_UserQuery{
+    margin: 0px 10px 0px 10px ;
+}
