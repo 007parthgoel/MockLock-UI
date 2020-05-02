@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../../App.css';
 import {Link, Redirect} from "react-router-dom";
 // import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';

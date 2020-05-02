@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers ,compose,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
-import QueriesReducer from './store/reducers/QueriesReducer';
+import QueriesReducer from './store/reducers/v1/QueriesReducer';
 
 const composeEnhancers = process.env.NODE_ENV==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 

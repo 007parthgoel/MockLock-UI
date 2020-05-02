@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from '../../App.css';
+import classes from '../../../App.css';
 
 function Home() {
     return (

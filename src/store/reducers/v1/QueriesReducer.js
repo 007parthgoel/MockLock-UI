@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/ActionTypes';
+import * as actionTypes from '../../actions/v1/ActionTypes';
 
 const initialState = {
     queries: [],
