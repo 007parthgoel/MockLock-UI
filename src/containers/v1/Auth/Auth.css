@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+}
+
+.Auth {
+    display: flex;
+    width: 90%;
+    flex-flow: column;
+    margin: 90px;
+    align-items: center;
+}
+
+.Email {
+    display: inline-block;
+    width: 30%;
+    height: 8vh;
+    margin: 5vh 0;
+    border: 1px solid grey;
+    box-shadow: 5px 7px #888888;
+    font-size: large;
+    border-radius: 10px;
+    font-weight: bolder;
+    background: peachpuff;
+}
+
+.Password {
+    display: inline-block;
+    width: 30%;
+    height: 8vh;
+    margin: 5vh 0;
+    border: 1px solid grey;
+    box-shadow: 5px 7px #888888;
+    font-size: large;
+    font-weight: bolder;
+    border-radius: 10px;
+    background: peachpuff;
+}
+
+.button{
+    display: inline-block;
+    width: 30%;
+    height: 8vh;
+    margin: 5vh 0;
+    font-size: x-large;
+    color: saddlebrown;
+    background: lightgreen;
+    box-shadow: 5px 7px green;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+ .button:focus,
+ .Email:focus,
+ .Password:focus{
+     outline: none;
+ }

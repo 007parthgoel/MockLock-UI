@@ -4,11 +4,10 @@
 
 .QueryGrid {
     width: 100%;
-    height: 30%;
-    overflow-y: auto;
-    background-color: darkgrey;
+    height: auto;
+    background-color: whitesmoke;
     border: 1px solid black;
-    /* margin: 2px; */
+    margin: 2px;
     border-radius: 5px;
     display: inline-block;
 }
@@ -23,12 +22,12 @@
     width: 15%;
     height: 15vh;
     margin: 5px;
-    background-image: url("../../../images/avatar.jpg");
+    background-image: url("../../../../images/avatar.jpg");
     /* background-color: blueviolet; */
     /* background-position: center; */
     border-radius: 5px;
     border: 1px solid lightgrey ;
-    background-position: left 40% top 0px;
+    background-position: left 40% top 3px;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -80,6 +79,14 @@
     font-weight: bold;
     font-size: 16px;    
 }
+
+.QueryGrid_QueryStatus_Resolved {
+    margin-top: 10px; 
+    color: green;
+    font-weight: bold;
+    font-size: 16px;    
+}
+
 
 .QueryGrid_bottom{
     margin: 0px;

@@ -8,11 +8,15 @@ import { createStore, combineReducers ,compose,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
 import QueriesReducer from './store/reducers/v1/QueriesReducer';
+import StationaryPointerReducer from './store/reducers/v1/StationaryPointsReducer';
+import AuthReducer from './store/reducers/v1/AuthReducer';
 
 const composeEnhancers = process.env.NODE_ENV==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-    query: QueriesReducer
+    query: QueriesReducer,
+    stationaryPointer:StationaryPointerReducer,
+    auth:AuthReducer,
 });
 
 const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
@@ -22,7 +26,7 @@ const app = (
     <Provider store={store}>
         <App />
     </Provider>
-)
+);
 ReactDOM.render(app, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

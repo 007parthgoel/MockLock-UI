@@ -6,7 +6,7 @@ export const initQueries=()=>{
     return dispatch=>{
         axios.post(endpoints.fetchAllQueries,{status:"PENDING"})
         .then(response=>{
-            // console.log(response);
+            console.log(response.data);
             dispatch(setQueries(response.data));
         })
         .catch(err=>{

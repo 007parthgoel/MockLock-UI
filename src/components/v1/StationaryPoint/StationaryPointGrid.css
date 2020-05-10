@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+.stationaryPointGrid {
+    display: inline-block;
+    height: auto;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    border-radius: 2px;
+    background: whitesmoke;
+}
+
+.stationaryPointGrid:hover {
+    background: grey;
+}
+
+.stationaryPointGrid:active,
+.stationaryPointGrid:visited {
+    background: green
+}
+
+.stationaryPointGrid_top {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 5vh;
+    width: 100%;
+}
+
+.latitude_longitude {
+    display: inline-block;
+    font-size: small;
+    background: #09d3ac;
+    padding: 3px;
+    border-radius: 3px;
+    margin: 5px 0px 0px 0px;
+}
+
+.stationaryPointGrid_middle {
+    display: inline-block;
+    margin: 3px 0px;
+    width: 100%;
+    justify-items: center;
+    /*height: auto;*/
+}
+
+.address {
+    display: inline-block;
+    margin: 3px 0px;
+    width: 90%;
+}
+
+.stationaryPointMenu {
+    display: inline-block;
+    width: auto;
+    justify-items: center;
+}
+
+.dot {
+    display: flex;
+    flex-flow: column;
+    height: 7px;
+    width: 7px;
+    margin: 2px;
+    background-color: black;
+    border-radius: 50%;
+    /*text-align: right;*/
+}
+
+.stationaryPointGrid_bottom {
+    display: inline-block;
+    width: 100%;
+}
+
+.launches {
+    display: inline-block;
+    width: 30%;
+    color: rebeccapurple;
+    margin: 3px 0px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.hours_playback {
+    display: inline-block;
+    width: 30%;
+    color: orangered;
+    margin: 3px 0px;
+    font-weight: bold;
+    font-size: 20px;
+}

@@ -6,11 +6,9 @@ import "react-datepicker/dist/react-datepicker.css";
 // import InfiniteCalendar from 'react-infinite-calendar';
 // import 'react-infinite-calendar/styles.css'; // only needs to be imported once
 
-// import classes from '../../App.css';
-
 import classes from './Queries.css';
-import QueryGrid from '../../../components/v1/QueryGrid/QueryGrid';
-import QuerySelected from '../../../components/v1/querySelected/QuerySelected';
+import QueryGrid from '../../../components/v1/Queries/QueryGrid/QueryGrid';
+import QuerySelected from '../../../components/v1/Queries/querySelected/QuerySelected';
 import * as actions from '../../../store/actions/v1/Index';
 // import DataSelect from '../../components/UI/DateSelect/DateSelect';
 
