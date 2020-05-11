@@ -1,6 +1,9 @@
 export const localStorageConfig={
-    Admin_user:"Admin_user" ,
-    is_login:"is_login",
+    // Admin_user:"Admin_user" ,
+    // is_login:"is_login",
+    user_token:"user_token",
+    user_id:"user_id",
+    user_type:"user_type",
 };
 
 export const set_localStorage=(pageName,key,value)=>{

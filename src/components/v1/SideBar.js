@@ -106,7 +106,8 @@ function SideBar(props) {
     };
 
     let list = null;
-    if (props.user.user_type === 'mobile') {
+    // if (props.user.user_type === 'mobile') {
+    if (props.user_type === 'mobile') {
         list = (
             <List>
 
@@ -132,7 +133,7 @@ function SideBar(props) {
                 </Link>
             </List>
         )
-    } else if (props.user.user_type === 'admin') {
+    } else if (props.user_type === 'admin') {
         list = (
             <List>
 
@@ -250,12 +251,14 @@ const mapStateToProps = state => {
     return {
         user: state.auth.Admin_user,
         authRedirect: state.auth.authRedirect,
+        user_type: state.auth.user_type,
+        user_token: state.auth.user_token
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogout: () => dispatch(actions.onLogout()),
+        onLogout: () => dispatch(actions.authLogout()),
         // onSubmitHandler: (details) => dispatch(actions.initAdminLogin(details)),
     };
 };
