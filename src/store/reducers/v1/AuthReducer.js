@@ -22,10 +22,19 @@ const adminLoginFailed=(state,action)=>{
     }
 };
 
+const adminLogout=(state,action)=>{
+    return {
+        ...state,
+        Admin_user:{},
+        authRedirect: "/"
+    }
+};
+
 const reducer=(state=initialState,action)=>{
     switch (action.type) {
         case actionTypes.ADMIN_LOGIN_SUCCESS: return adminLoginSuccess(state,action);
         case actionTypes.ADMIN_LOGIN_FAILED: return adminLoginFailed(state,action);
+        case actionTypes.ADMIN_LOGOUT:return adminLogout(state,action);
         default:return state;
     }
 };

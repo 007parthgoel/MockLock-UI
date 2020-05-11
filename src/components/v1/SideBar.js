@@ -3,7 +3,7 @@ import '../../App.css';
 import {Link, Redirect} from "react-router-dom";
 // import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,7 +21,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import {connect} from 'react-redux';
-// import * as actions from "../../store/actions/v1";
+import * as actions from "../../store/actions/v1/Index";
 
 const drawerWidth = 240;
 
@@ -101,49 +101,52 @@ function SideBar(props) {
         setOpen(false);
     };
 
-    let list=null;
-    if(props.user.user_type==='mobile'){
-        list=(
+    const logoutHandler = () => {
+        props.onLogout();
+    };
+
+    let list = null;
+    if (props.user.user_type === 'mobile') {
+        list = (
             <List>
 
-                <Link to="/notification" style={{textDecoration:"none"}}>
-                    <ListItem button >
-                        <ListItemIcon><InboxIcon /> </ListItemIcon>
-                        <Typography  style={{color:"#333333"}}> Notifications</Typography>
+                <Link to="/notification" style={{textDecoration: "none"}}>
+                    <ListItem button>
+                        <ListItemIcon><InboxIcon/> </ListItemIcon>
+                        <Typography style={{color: "#333333"}}> Notifications</Typography>
                     </ListItem>
                 </Link>
 
-                <Link to="/stationary-pointer" style={{textDecoration:"none"}}>
+                <Link to="/stationary-pointer" style={{textDecoration: "none"}}>
                     <ListItem button>
-                        <ListItemIcon><MailIcon /> </ListItemIcon>
-                        <Typography  style={{color:"#333333"}}> Stationary Pointer</Typography>
+                        <ListItemIcon><MailIcon/> </ListItemIcon>
+                        <Typography style={{color: "#333333"}}> Stationary Pointer</Typography>
                     </ListItem>
                 </Link>
 
-                <Link to="/queries" style={{textDecoration:"none"}}>
+                <Link to="/queries" style={{textDecoration: "none"}}>
                     <ListItem button>
-                        <ListItemIcon><MailIcon /> </ListItemIcon>
-                        <Typography  style={{color:"#333333"}}> Queries</Typography>
+                        <ListItemIcon><MailIcon/> </ListItemIcon>
+                        <Typography style={{color: "#333333"}}> Queries</Typography>
                     </ListItem>
                 </Link>
             </List>
         )
-    }
-    else if(props.user.user_type==='admin'){
-        list=(
+    } else if (props.user.user_type === 'admin') {
+        list = (
             <List>
 
-                <Link to="/notification" style={{textDecoration:"none"}}>
-                    <ListItem button >
-                        <ListItemIcon><InboxIcon /> </ListItemIcon>
-                        <Typography  style={{color:"#333333"}}> Notifications</Typography>
+                <Link to="/notification" style={{textDecoration: "none"}}>
+                    <ListItem button>
+                        <ListItemIcon><InboxIcon/> </ListItemIcon>
+                        <Typography style={{color: "#333333"}}> Notifications</Typography>
                     </ListItem>
                 </Link>
 
-                <Link to="/queries" style={{textDecoration:"none"}}>
+                <Link to="/queries" style={{textDecoration: "none"}}>
                     <ListItem button>
-                        <ListItemIcon><MailIcon /> </ListItemIcon>
-                        <Typography  style={{color:"#333333"}}> Queries</Typography>
+                        <ListItemIcon><MailIcon/> </ListItemIcon>
+                        <Typography style={{color: "#333333"}}> Queries</Typography>
                     </ListItem>
                 </Link>
             </List>
@@ -153,7 +156,7 @@ function SideBar(props) {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -170,10 +173,17 @@ function SideBar(props) {
                             [classes.hide]: open,
                         })}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Mock-Lock
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        edge="end"
+                        onClick={logoutHandler}>
+                        Logout
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -189,14 +199,14 @@ function SideBar(props) {
                         [classes.drawerClose]: !open,
                     }),
                 }}
-                open={open}
-            >
+                open={open}>
+
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
 
                 {list}
 
@@ -210,14 +220,12 @@ function SideBar(props) {
                 {/*    </Link>*/}
 
 
-
                 {/*    <Link to="/stationary-pointer" style={{textDecoration:"none"}}>*/}
                 {/*        <ListItem button>*/}
                 {/*            <ListItemIcon><MailIcon /> </ListItemIcon>*/}
                 {/*            <Typography  style={{color:"#333333"}}> Stationary Pointer</Typography>*/}
                 {/*        </ListItem>*/}
                 {/*    </Link>*/}
-
 
 
                 {/*    <Link to="/queries" style={{textDecoration:"none"}}>*/}
@@ -228,24 +236,16 @@ function SideBar(props) {
                 {/*    </Link>*/}
 
 
-
-
                 {/*</List>*/}
-
-
             </Drawer>
-
-
 
             <main className={classes.content}>
 
             </main>
-
-
-
         </div>
     );
 }
+
 const mapStateToProps = state => {
     return {
         user: state.auth.Admin_user,
@@ -255,6 +255,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        onLogout: () => dispatch(actions.onLogout()),
         // onSubmitHandler: (details) => dispatch(actions.initAdminLogin(details)),
     };
 };

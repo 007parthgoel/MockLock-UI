@@ -10,4 +10,6 @@ export{
 
 export {
     initAdminLogin,
+    // adminLoginSuccess,
+    onLogout,
 } from './AuthAction';

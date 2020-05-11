@@ -18,12 +18,12 @@ class Auth extends Component {
         this.setState({password: event.target.value});
     };
 
-    formSubmitHandler = async () => {
+    formSubmitHandler = () => {
         const details = {
             email: this.state.email,
             password: this.state.password
         };
-        await this.props.onSubmitHandler(details);
+        this.props.onSubmitHandler(details);
         // console.log(this.props.user);
     };
 
