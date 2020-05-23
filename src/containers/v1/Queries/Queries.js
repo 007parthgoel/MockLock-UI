@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// import InfiniteCalendar from 'react-infinite-calendar';
-// import 'react-infinite-calendar/styles.css'; // only needs to be imported once
-
 import classes from './Queries.css';
 import QueryGrid from '../../../components/v1/Queries/QueryGrid/QueryGrid';
 import QuerySelected from '../../../components/v1/Queries/querySelected/QuerySelected';
@@ -20,13 +17,7 @@ class Queries extends Component {
 
     componentDidMount() {
         this.props.onFetchAllQueries();
-        // console.log(new Intl.DateTimeFormat('en-US').format(Date.now()));
-        console.log(new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(Date.now()));
     };
-
-    handleChange = (e) => {
-
-    }
 
     render() {
 
@@ -91,15 +82,13 @@ class Queries extends Component {
 
                 <div className={classes.QueriesPage_Right}>
                     <div className={classes.UserDetail_Panel}>
-                        {/* <div className={classes.UserDetail_Panel_top}> */}
-                        {/* {this.props.querySelected.user_email} */}
+
                         <QuerySelected
                             queryDetails={this.props.querySelected} />
-                        {/* </div> */}
                         <div className={classes.UserDetail_Panel_middle}>
                             <textarea
                                 className={classes.UserDetail_Panel_input}
-                                placeholder="Here the admin will right repy to user" />
+                                placeholder="Here the admin will right reply to user" />
                         </div>
                         <div className={classes.UserDetail_Panel_bottom}>
                             <button className={classes.UserDetail_Panel_bottom_button}>Send Reply</button>

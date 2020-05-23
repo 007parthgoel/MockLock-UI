@@ -5,6 +5,7 @@ export {
 
 export{
     initStationaryPoints,
+    intiStationaryPointsbyID_FOR_ADMIN,
     stationaryPointSelected
 } from './StationaryPointsAction';
 
@@ -14,3 +15,7 @@ export {
     // adminLoginSuccess,
     authLogout,
 } from './AuthAction';
+
+export {
+    initAllUsersList,
+} from './UsersAction';

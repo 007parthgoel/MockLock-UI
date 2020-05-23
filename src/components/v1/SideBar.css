@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+}
+
+.Toolbar {
+    background: slateblue;
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*background-color: #703B09;*/
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+}
+
+.DrawerToggle {
+    width: 3%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    /*align-items: center;*/
+    padding: 10px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.DrawerToggle div {
+    width: 90%;
+    height: 6%;
+    background-color: white;
+    border-radius: 50px;
+}
+
+.Mockloc {
+    display: inline-block;
+    width: 50%;
+    margin-left: 3vw;
+    text-align: left;
+    float: left;
+}
+
+.logout {
+    display: inline-block;
+    float: right;
+    width: 40%;
+    justify-content: right;
+    text-align: right;
+}
+
+.logout h2 {
+    display: inline-block;
+}
+
+.logout h2:hover{
+    cursor: pointer;
+}
+
+.SideDrawer {
+    position: fixed;
+    margin-top: 5vh;
+    /*max-width: 70%;*/
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 80;
+    background-color: navajowhite;
+    padding: 32px 16px;
+    border: 1px solid grey;
+    transition: transform 0.3s ease-out;
+    overflow-x: hidden;
+}
+
+.Open {
+    /*transform: translateX(0);*/
+    width: 12vw;
+}
+
+.Close {
+    width: 3vw;
+    /*transform: translateX(0)*/
+}
+
+.iconBar {
+    position: fixed;
+    width: 5vw;
+    z-index: 70;
+    background: coral;
+    height: 100%;
+}
+
+.content {
+    margin-top: 7vh;
+}

@@ -4,5 +4,9 @@
     /*border-radius: 3px;*/
     height: 100%;
     width: 100%;
+}
+
+.GoogleMapsMarker{
+    border-radius: 50%;
 
 }

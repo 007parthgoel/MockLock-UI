@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import classes from './Auth.css'
 import * as actions from '../../../store/actions/v1/Index';
 
@@ -24,19 +23,20 @@ class Auth extends Component {
             password: this.state.password
         };
         this.props.onSubmitHandler(details);
-        // console.log(this.props.user);
+        this.setState({password:""});
     };
 
     render() {
 
-        let authRedirect = null;
-        if (this.props.user) {
-            authRedirect = <Redirect to={this.props.authRedirect}/>
+        let error;
+        if(this.props.error) {
+            // this.setState({password:""});
+            error=(<p className={classes.loginError}>Invalid Username and Password</p>);
         }
+        else {error=null;}
 
         return (
             <div className={classes.Auth}>
-                {authRedirect}
                 <input
                     type={"text"}
                     value={this.state.email}
@@ -50,6 +50,7 @@ class Auth extends Component {
                     placeholder={"Password"}
                     className={classes.Password}
                     onChange={(event) => this.passwordChangeHandler(event)}/>
+                {error}
                 <button
                     className={classes.button}
                     onClick={this.formSubmitHandler}>Submit
@@ -61,8 +62,7 @@ class Auth extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.Admin_user,
-        authRedirect: state.auth.authRedirect,
+        error: state.auth.error,
     }
 };
 

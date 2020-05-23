@@ -55,3 +55,9 @@
  .Password:focus{
      outline: none;
  }
+
+ .loginError{
+     font-weight: bolder;
+     font-size: large;
+     color: orangered;
+ }

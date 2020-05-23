@@ -1,11 +1,9 @@
 import React from 'react';
+import moment from 'moment'
 import classes from './QueryGrid.css';
 
 const queryGrid = (props) => {
-
-    // let timestamp = props.query._id.toString().substring(0, 8);
-    // let date = new Date(parseInt(timestamp, 16) * 1000)
-    // let date=props.query
+    
     let QueryGrid_QueryStatus = (props.query.status === "RESOLVED") ? classes.QueryGrid_QueryStatus_Resolved : classes.QueryGrid_QueryStatus_Pending;
 
     return (
@@ -22,7 +20,8 @@ const queryGrid = (props) => {
                 </div>
 
                 <div className={classes.QueryGrid_Date_Status}>
-                    <p className={classes.QueryGrid_Date}>{new Intl.DateTimeFormat('en-US').format(Date.now())}</p>
+                    {/*<p className={classes.QueryGrid_Date}>{new Intl.DateTimeFormat('en-US').format(Date.now())}</p>*/}
+                    <p className={classes.QueryGrid_Date}>{moment(props.query.updatedAt).format('DD-MMMM-YYYY | h:mm A')}</p>
                     {/* <p>{date}</p> */}
                     <p className={QueryGrid_QueryStatus}>{props.query.status}</p>
                 </div>

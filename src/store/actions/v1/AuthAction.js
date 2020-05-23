@@ -3,10 +3,11 @@ import axios from 'axios';
 import * as actionTypes from './ActionTypes';
 import * as endpoints from '../../../utils/endpoints';
 import {
-    localStorageConfig,
-    set_localStorage,
-    remove_localStorage,
-    get_localStorage
+    localConfig,
+    set_cookies,
+    load_cookies,
+    remove_cookies,
+    loadAll_cookies
 } from '../../../utils/SessionManager';
 
 export const initAdminLogin = (details) => {
@@ -16,13 +17,11 @@ export const initAdminLogin = (details) => {
             password: details.password,
         })
             .then(response => {
-                // set_localStorage("AuthAction-InitAdmin", localStorageConfig.is_login, true);
-                set_localStorage("AuthAction-InitAdmin", localStorageConfig.user_token,response.data.response.token);
-                set_localStorage("AuthAction-InitAdmin", localStorageConfig.user_type, response.data.response.user_type);
-                set_localStorage("AuthAction-InitAdmin", localStorageConfig.user_id, response.data.response._id);
-                // set_localStorage("AuthAction-InitAdmin", localStorageConfig.Admin_user, JSON.stringify(response.data));
+                set_cookies("AuthAction-InitAdmin",localConfig.user_type,response.data.response.user_type,{});
+                // set_cookies("AuthAction-InitAdmin",localConfig.user_id,response.data.response._id,{});
+                set_cookies("AuthAction-InitAdmin",localConfig.user_token,response.data.response.token,{});
                 let user_details = {
-                    user_id: response.data.response._id,
+                    // user_id: response.data.response._id,
                     user_type: response.data.response.user_type,
                     user_token: response.data.response.token,
                     // user_email: response.data.response.user_email,
@@ -51,13 +50,13 @@ const adminLoginFailed = (error) => {
 
 export const authCheckState = () => {
     return dispatch => {
-        // if (get_localStorage("AuthAction-authCheckState", localStorageConfig.is_login) === true) {
-        if (get_localStorage("AuthAction-authCheckState", localStorageConfig.user_token)) {
-            // let details = JSON.parse(get_localStorage(localStorageConfig.Admin_user));
+        if (load_cookies("AuthAction-authCheckState", localConfig.user_token)) {
+            let user=loadAll_cookies("AuthAction-authCheckState");
+            loadAll_cookies("AuthAction-authCheckState");
             let user_details = {
-                user_id: get_localStorage("AuthAction-authCheckState", localStorageConfig.user_id),
-                user_type: get_localStorage("AuthAction-authCheckState", localStorageConfig.user_type),
-                user_token:get_localStorage("AuthAction-authCheckState",localStorageConfig.user_token),
+                // user_id: user.user_id,
+                user_type: user.user_type,
+                user_token: user.user_token
             };
             dispatch(adminLoginSuccess(user_details));
         } else (dispatch(authLogout));
@@ -65,10 +64,10 @@ export const authCheckState = () => {
 };
 
 export const authLogout = () => {
-    // set_localStorage("AuthAction-onLogout", localStorageConfig.is_login, false);
-    remove_localStorage("AuthAction-onLogout", localStorageConfig.user_id);
-    remove_localStorage("AuthAction-onLogout", localStorageConfig.user_type);
-    remove_localStorage("AuthAction-onLogout", localStorageConfig.user_token);
+    // remove_cookies("AuthAction-onLogout",localConfig.user_id);
+    remove_cookies("AuthAction-onLogout",localConfig.user_token);
+    remove_cookies("AuthAction-onLogout",localConfig.user_type);
+    loadAll_cookies("AuthAction-onLogout");
     return {
         type: actionTypes.ADMIN_LOGOUT
     }

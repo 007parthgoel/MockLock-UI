@@ -2,7 +2,7 @@ import * as actionTypes from '../../actions/v1/ActionTypes';
 
 const initialState = {
     queries: [],
-    error: false,
+    error: null,
     querySelected: {}
 };
 
@@ -18,7 +18,7 @@ const fetchQueriesFailed = (state, action) => {
     // console.log(action.error);
     return {
         ...state,
-        error: true
+        error: action.err,
     };
 };
 

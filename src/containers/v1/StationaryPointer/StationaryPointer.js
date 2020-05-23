@@ -6,6 +6,11 @@ import StationaryPoinGrid from '../../../components/v1/StationaryPoint/Stationar
 import Maps from '../../../components/v1/UI/GoogleMaps/GoogleMaps';
 // import Maps from '../../../components/v1/UI/MapBox/MapBox';
 import * as actions from "../../../store/actions/v1/Index";
+import { localConfig,
+    set_cookies,
+    load_cookies,
+    remove_cookies,
+    loadAll_cookies} from '../../../utils/SessionManager';
 
 class StationaryPointer extends Component {
 
@@ -18,7 +23,10 @@ class StationaryPointer extends Component {
     };
 
     componentDidMount() {
-        this.props.onFetchAllStationaryPoints();
+        if (load_cookies("StationaryPointer",localConfig.user_type,false) === 'mobile') {
+            this.props.fetchStnryPointsFor_MOBILE_USER(load_cookies("StationaryPointer",localConfig.user_token,false));
+        }
+
     };
 
     render() {
@@ -28,8 +36,6 @@ class StationaryPointer extends Component {
                 <StationaryPoinGrid
                     stationaryPoint={stationaryPoint}
                     clicked={(_id) => {
-                        // this.setState({_id: _id});
-                        // console.log(_id);
                         this.props.onStationaryPointSelected(_id);
                     }}/>
 
@@ -41,7 +47,6 @@ class StationaryPointer extends Component {
                 <div className={classes.Page_headings}>
                     <h1>History</h1>
                     <h1>Playlists</h1>
-                    {/*<h1>Manual Itenaries</h1>*/}
                 </div>
 
                 <div className={classes.Page_subheadings}>
@@ -60,9 +65,9 @@ class StationaryPointer extends Component {
                                 {StationaryPointGrid}
                             </ul>
                         </div>
-                        <div className={classes.SubMenu}>
-                            <p>submenu</p>
-                        </div>
+                        {/*<div className={classes.SubMenu}>*/}
+                        {/*    <p>submenu</p>*/}
+                        {/*</div>*/}
                     </div>
                     <div className={classes.googleMaps}>
                         <Maps
@@ -81,15 +86,15 @@ const
         return {
             StationaryPoints: state.stationaryPointer.stationaryPoints,
             error: state.stationaryPointer.error,
-            stationaryPointSelected:state.stationaryPointer.stationaryPointSelected
+            stationaryPointSelected: state.stationaryPointer.stationaryPointSelected,
         };
     };
 
 const
     mapDispatchToProps = dispatch => {
         return {
-            onFetchAllStationaryPoints: () => dispatch(actions.initStationaryPoints()),
-            onStationaryPointSelected : (_id) => dispatch(actions.stationaryPointSelected(_id))
+            fetchStnryPointsFor_MOBILE_USER: (token) => dispatch(actions.initStationaryPoints(token)),
+            onStationaryPointSelected: (_id) => dispatch(actions.stationaryPointSelected(_id))
         };
     };
 

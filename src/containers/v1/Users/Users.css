@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
+.UserPage{
+    display: inline-block;
+     /*text-align: center;*/
+    margin: 30px 0px 0px 100px;
+    height: 87vh;
+    width: 92%;
+    /*vertical-align: middle;*/
+    border: 2px solid saddlebrown;
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+}

@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+}
+
+.UserList {
+    display: inline-block;
+    height: auto;
+    width: 100%;
+    margin: 2px 2px 2px 2px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background: lavender;
+}
+
+.UserList_top {
+    display: inline-block;
+    width: 100%;
+}
+
+.Name {
+    display: inline-block;
+    width: 40%;
+    margin-left: 1vw;
+}
+
+.Name h4,
+.Name p {
+    display: inline-block;
+    width: 20%;
+}
+
+.Email {
+    display: inline-block;
+    width: 40%;
+}
+
+.Email h4,
+.Email p {
+    display: inline-block;
+    width: 20%;
+}
+
+.UserList_bottom {
+    display: inline-block;
+    width: 100%;
+}
+
+.UserID {
+    display: inline-block;
+    width: 40%;
+    margin-left: 1vw;
+}
+
+.UserID h4,
+.UserID p {
+    display: inline-block;
+    width: 20%;
+}
+
+.UserListButton {
+    display: inline-block;
+    width: 40%;
+}
+
+.stnPointButton {
+    display: inline-block;
+    background: lawngreen;
+    border: 2px solid forestgreen;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.stnPointButton:hover {
+    background: green;
+    color: white;
+    cursor: pointer;
+}
+
+.playlistButton {
+    display: inline-block;
+    background: lightsalmon;
+    margin-left: 1vw;
+    border: 2px solid forestgreen;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.playlistButton:hover {
+    background: coral;
+    color: white;
+    cursor: pointer;
+}
+

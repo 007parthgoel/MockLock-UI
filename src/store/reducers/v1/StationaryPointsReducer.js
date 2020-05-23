@@ -5,6 +5,10 @@ const initialState={
     stationaryPoints: [],
     stationaryPointSelected:{},
     error: false,
+    // ADMIN:{
+    //     user_id_selected:null,
+    //
+    // }
 };
 
 const setStationaryPoints=(state,action)=>{
