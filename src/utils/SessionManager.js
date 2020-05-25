@@ -4,7 +4,8 @@ export const localConfig={
     user_token:"user_token",
     user_id:"user_id",
     user_type:"user_type",
-    user:"user"
+    user:"user",
+    userID_selected:"userID_selected",
 };
 
 // export const set_localStorage=(pageName,key,value)=>{

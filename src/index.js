@@ -11,6 +11,7 @@ import {CookiesProvider} from 'react-cookie';
 
 import QueriesReducer from './store/reducers/v1/QueriesReducer';
 import StationaryPointerReducer from './store/reducers/v1/StationaryPointsReducer';
+import PlaylistsReducer from './store/reducers/v1/PlaylistReducer';
 import AuthReducer from './store/reducers/v1/AuthReducer';
 import UsersListReducer from './store/reducers/v1/UsersListReducer';
 
@@ -19,8 +20,9 @@ const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX
 const rootReducer = combineReducers({
     query: QueriesReducer,
     stationaryPointer: StationaryPointerReducer,
+    playlists: PlaylistsReducer,
     auth: AuthReducer,
-    usersList: UsersListReducer
+    usersList: UsersListReducer,
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

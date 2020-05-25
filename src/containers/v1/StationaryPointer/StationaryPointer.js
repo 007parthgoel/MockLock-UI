@@ -6,25 +6,24 @@ import StationaryPoinGrid from '../../../components/v1/StationaryPoint/Stationar
 import Maps from '../../../components/v1/UI/GoogleMaps/GoogleMaps';
 // import Maps from '../../../components/v1/UI/MapBox/MapBox';
 import * as actions from "../../../store/actions/v1/Index";
-import { localConfig,
+import {
+    localConfig,
     set_cookies,
     load_cookies,
     remove_cookies,
-    loadAll_cookies} from '../../../utils/SessionManager';
+    loadAll_cookies
+} from '../../../utils/SessionManager';
+import {Link} from "react-router-dom";
 
 class StationaryPointer extends Component {
 
-    state = {
-        stationaryPoint: {
-            lat: null,
-            lng: null,
-        },
-        _id: null,
-    };
-
     componentDidMount() {
-        if (load_cookies("StationaryPointer",localConfig.user_type,false) === 'mobile') {
-            this.props.fetchStnryPointsFor_MOBILE_USER(load_cookies("StationaryPointer",localConfig.user_token,false));
+        if (load_cookies("StationaryPointer", localConfig.user_type, false) === 'mobile') {
+            this.props.fetchStnryPointsFor_MOBILE_USER(load_cookies("StationaryPointer", localConfig.user_token, false));
+        }
+
+        if (load_cookies("StationaryPointer", localConfig.user_type, false) === "admin") {
+            this.props.fetchStnryPointsFor_ADMIN_USER(load_cookies("StationaryPointer", localConfig.userID_selected, false));
         }
 
     };
@@ -32,7 +31,7 @@ class StationaryPointer extends Component {
     render() {
 
         const StationaryPointGrid = this.props.StationaryPoints.map(stationaryPoint => (
-            <li>
+            <li key={stationaryPoint._id}>
                 <StationaryPoinGrid
                     stationaryPoint={stationaryPoint}
                     clicked={(_id) => {
@@ -42,11 +41,20 @@ class StationaryPointer extends Component {
             </li>
         ));
 
+        let stationaryPointSelected_array=[];
+        if(Object.keys(this.props.stationaryPointSelected).length>0){
+            stationaryPointSelected_array[0]=this.props.stationaryPointSelected;
+        }
+
         return (
             <div className={classes.StationPointerPage}>
                 <div className={classes.Page_headings}>
-                    <h1>History</h1>
-                    <h1>Playlists</h1>
+                    <Link to="/stationary-pointer">
+                        <h1 className={classes.Page_headings_active}>History</h1>
+                    </Link>
+                    <Link to="/playlists">
+                        <h1>Playlists</h1>
+                    </Link>
                 </div>
 
                 <div className={classes.Page_subheadings}>
@@ -71,9 +79,10 @@ class StationaryPointer extends Component {
                     </div>
                     <div className={classes.googleMaps}>
                         <Maps
-                            stationaryPointDetails={this.props.stationaryPointSelected}
+                            // Mapcoordinates_Details={Object.values(this.props.stationaryPointSelected)}
+                            Mapcoordinates_Details={stationaryPointSelected_array}
                         />
-                        console.log(this.props.stationaryPointSelected);
+                        {/*console.log(this.props.stationaryPointSelected);*/}
                     </div>
                 </div>
             </div>
@@ -94,7 +103,8 @@ const
     mapDispatchToProps = dispatch => {
         return {
             fetchStnryPointsFor_MOBILE_USER: (token) => dispatch(actions.initStationaryPoints(token)),
-            onStationaryPointSelected: (_id) => dispatch(actions.stationaryPointSelected(_id))
+            onStationaryPointSelected: (_id) => dispatch(actions.stationaryPointSelected(_id)),
+            fetchStnryPointsFor_ADMIN_USER: (_id) => dispatch(actions.initStationaryPointsbyID_FOR_ADMIN(_id)),
         };
     };
 

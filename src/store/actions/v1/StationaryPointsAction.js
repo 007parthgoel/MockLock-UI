@@ -2,6 +2,13 @@ import axios from 'axios';
 
 import * as actionTypes from './ActionTypes';
 import * as endpoints from '../../../utils/endpoints';
+import {
+    localConfig,
+    set_cookies,
+    load_cookies,
+    remove_cookies,
+    loadAll_cookies
+} from '../../../utils/SessionManager';
 
 // action to fetch stationary points for mobile users::
 export const initStationaryPoints = (token) => {
@@ -20,7 +27,8 @@ export const initStationaryPoints = (token) => {
 };
 
 // action to fetch stationary points by ID for ADMIN USER::
-export const intiStationaryPointsbyID_FOR_ADMIN=(id)=>{
+export const initStationaryPointsbyID_FOR_ADMIN=(id)=>{
+    set_cookies("initStationaryPointsbyID_FOR_ADMIN",localConfig.userID_selected,id,{});
     return dispatch=>{
         axios.get(endpoints.fetchAllStationaryPointsbyID_FOR_ADMIN+id)
             .then(response=>{
@@ -52,7 +60,7 @@ export const stationaryPointSelected = (_id) => {
         type: actionTypes.STATIONARY_POINT_SELECTED,
         _id:_id
     }
-}
+};
 
 
 

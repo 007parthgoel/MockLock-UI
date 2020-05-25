@@ -9,6 +9,7 @@ import Users from './containers/v1/Users/Users';
 // import Home from "./containers/v1/Home/Home";
 import Queries from "./containers/v1/Queries/Queries";
 import Auth from './containers/v1/Auth/Auth';
+import Playlists from './containers/v1/Playlists/Playlists';
 import {connect} from "react-redux";
 import * as actions from "./store/actions/v1/Index";
 import {
@@ -36,6 +37,7 @@ class App extends Component {
                     {/*<Route path="/home" component={Home}/>*/}
                     <Route path="/notification" component={Notification}/>
                     <Route path="/stationary-pointer" component={StationaryPointer}/>
+                    <Route path="/playlists" component={Playlists}/>
                     <Route path="/queries" component={Queries}/>
                     {/*<Route path="/" exact component={Auth}/>*/}
                     <Redirect to="/notification"/>
@@ -45,6 +47,7 @@ class App extends Component {
                     <Route path="/notification" component={Notification}/>
                     <Route path="/stationary-pointer" component={StationaryPointer}/>
                     <Route path="/queries" component={Queries}/>
+                    <Route path="/playlists" component={Playlists}/>
                     <Route path="/users" component={Users}/>
                     {/*<Route path="/users" component={User}/>*/}
                     <Redirect to="/notification"/>

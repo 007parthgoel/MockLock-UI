@@ -5,9 +5,15 @@ export {
 
 export{
     initStationaryPoints,
-    intiStationaryPointsbyID_FOR_ADMIN,
+    initStationaryPointsbyID_FOR_ADMIN,
     stationaryPointSelected
 } from './StationaryPointsAction';
+
+export{
+    initPlaylists,
+    initPlaylistsbyID_FOR_ADMIN,
+    playlistSelected
+} from './PlaylistsAction';
 
 export {
     initAdminLogin,
@@ -19,3 +25,4 @@ export {
 export {
     initAllUsersList,
 } from './UsersAction';
+

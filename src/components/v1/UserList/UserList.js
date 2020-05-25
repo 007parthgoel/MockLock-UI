@@ -28,10 +28,12 @@ const UserList = (props) => {
                             Stationary Points
                         </button>
                     </Link>
-                    <button className={classes.playlistButton}
-                            // onClick={() => props.stnPointButtonClicked(props.userDetails._id)}
-                    > Playlists
-                    </button>
+                    <Link to="/playlists">
+                        <button className={classes.playlistButton}
+                                onClick={() => props.playlistButtonClicked(props.userDetails._id)}
+                        > Playlists
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

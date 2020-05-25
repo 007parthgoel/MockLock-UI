@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Link,Redirect} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 
 import classes from './Users.css'
 import UserList from '../../../components/v1/UserList/UserList';
@@ -12,8 +12,13 @@ class Users extends Component {
         this.props.onFetchAllUsers();
     }
 
-    stnPointBtnClickHandler=(id)=>{
+    stnPointBtnClickHandler = (id) => {
         this.props.onStnPointBtnClick(id);
+        // <Redirect to="/stationary-pointer"/>
+    };
+
+    playlistBtnClickHandler = (id) => {
+        this.props.onPlaylistBtnClick(id);
         // <Redirect to="/stationary-pointer"/>
     };
 
@@ -21,8 +26,10 @@ class Users extends Component {
     render() {
 
         const userList = this.props.usersList.map(user => (
-            <UserList userDetails={user}
-                      stnPointButtonClicked={(_id)=>this.stnPointBtnClickHandler(_id)}/>
+            <UserList key={user._id}
+                      userDetails={user}
+                      stnPointButtonClicked={(_id) => this.stnPointBtnClickHandler(_id)}
+                      playlistButtonClicked={(_id) => this.playlistBtnClickHandler(_id)}/>
         ));
 
 
@@ -47,7 +54,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchAllUsers: () => dispatch(actions.initAllUsersList()),
-        onStnPointBtnClick:(id)=>dispatch(actions.intiStationaryPointsbyID_FOR_ADMIN(id)),
+        onStnPointBtnClick: (id) => dispatch(actions.initStationaryPointsbyID_FOR_ADMIN(id)),
+        onPlaylistBtnClick: (id) => dispatch(actions.initPlaylistsbyID_FOR_ADMIN(id)),
     }
 };
 
