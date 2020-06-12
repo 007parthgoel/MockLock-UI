@@ -24,7 +24,7 @@ export const reducer=(state=initialState,action)=>{
         case actionTypes.SET_USERS_LIST: return setUsersList(state,action);
         case actionTypes.FETCH_USERS_LIST_FAILED:return fetchUsersListFailed(state,action);
         default:return state;
-    };
+    }
 };
 
 export default reducer;

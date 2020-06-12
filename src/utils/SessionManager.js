@@ -6,6 +6,7 @@ export const localConfig={
     user_type:"user_type",
     user:"user",
     userID_selected:"userID_selected",
+    playlistID_selected:"playlistID_selected",
 };
 
 // export const set_localStorage=(pageName,key,value)=>{

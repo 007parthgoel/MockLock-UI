@@ -72,7 +72,7 @@
     background-color: navajowhite;
     padding: 32px 16px;
     border: 1px solid grey;
-    transition: transform 0.3s ease-out;
+    transition: width 0.6s ;
     overflow-x: hidden;
 }
 
@@ -83,7 +83,7 @@
 
 .Close {
     width: 3vw;
-    /*transform: translateX(0)*/
+    /*transform: translateX(-80%)*/
 }
 
 .iconBar {
@@ -92,6 +92,18 @@
     z-index: 70;
     background: coral;
     height: 100%;
+}
+
+.ListItems {
+    display: flex;
+    flex-flow: row;
+    margin-top: 2vh;
+    /*width: 100%;*/
+}
+
+.ListItems p{
+    padding: 0px;
+    margin: 0px 2vw;
 }
 
 .content {

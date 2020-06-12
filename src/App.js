@@ -1,6 +1,7 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+
 // import SideBar from "./components/v1/SideBar";
 import SideBar from "./components/v1/SideBar2";
 import Notification from "./components/v1/Notifications";
@@ -10,14 +11,16 @@ import Users from './containers/v1/Users/Users';
 import Queries from "./containers/v1/Queries/Queries";
 import Auth from './containers/v1/Auth/Auth';
 import Playlists from './containers/v1/Playlists/Playlists';
+import NewPlaylist from './containers/v1/Playlists/NewPlaylist/NewPlaylist';
 import {connect} from "react-redux";
 import * as actions from "./store/actions/v1/Index";
+
 import {
     localConfig,
-    set_cookies,
     load_cookies,
-    remove_cookies,
-    loadAll_cookies
+    // set_cookies,
+    // remove_cookies,
+    // loadAll_cookies
 } from "./utils/SessionManager";
 
 class App extends Component {
@@ -27,6 +30,7 @@ class App extends Component {
     }
 
     render() {
+
         let authPath;
 
         if (load_cookies("App.js", localConfig.user_token, false)) {
@@ -38,6 +42,7 @@ class App extends Component {
                     <Route path="/notification" component={Notification}/>
                     <Route path="/stationary-pointer" component={StationaryPointer}/>
                     <Route path="/playlists" component={Playlists}/>
+                    <Route path="/newPlaylist" component={NewPlaylist}/>
                     <Route path="/queries" component={Queries}/>
                     {/*<Route path="/" exact component={Auth}/>*/}
                     <Redirect to="/notification"/>
@@ -48,6 +53,7 @@ class App extends Component {
                     <Route path="/stationary-pointer" component={StationaryPointer}/>
                     <Route path="/queries" component={Queries}/>
                     <Route path="/playlists" component={Playlists}/>
+                    <Route path="/newPlaylist" component={NewPlaylist}/>
                     <Route path="/users" component={Users}/>
                     {/*<Route path="/users" component={User}/>*/}
                     <Redirect to="/notification"/>

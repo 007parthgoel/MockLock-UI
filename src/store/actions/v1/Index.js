@@ -12,7 +12,13 @@ export{
 export{
     initPlaylists,
     initPlaylistsbyID_FOR_ADMIN,
-    playlistSelected
+    playlistSelected,
+    createPlaylist,
+    createPlaylist_FOR_ADMIN,
+    updatePlaylist,
+    updatePlaylist_FOR_ADMIN,
+    fetchOnePlaylist,
+    fetchOnePlaylist_FOR_ADMIN
 } from './PlaylistsAction';
 
 export {

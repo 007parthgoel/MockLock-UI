@@ -8,10 +8,10 @@ import Maps from '../../../components/v1/UI/GoogleMaps/GoogleMaps';
 import * as actions from "../../../store/actions/v1/Index";
 import {
     localConfig,
-    set_cookies,
+    // set_cookies,
     load_cookies,
-    remove_cookies,
-    loadAll_cookies
+    // remove_cookies,
+    // loadAll_cookies
 } from '../../../utils/SessionManager';
 import {Link} from "react-router-dom";
 
@@ -29,6 +29,8 @@ class StationaryPointer extends Component {
     };
 
     render() {
+
+        let EmptyData_statement = (this.props.StationaryPoints.length === 0) ? <p>There are no StationaryPoints</p> : null;
 
         const StationaryPointGrid = this.props.StationaryPoints.map(stationaryPoint => (
             <li key={stationaryPoint._id}>
@@ -69,6 +71,7 @@ class StationaryPointer extends Component {
                 <div className={classes.Grid_MapContainer}>
                     <div className={classes.Grid}>
                         <div className={classes.GridList}>
+                            {EmptyData_statement}
                             <ul className={classes.Lists}>
                                 {StationaryPointGrid}
                             </ul>
@@ -82,7 +85,6 @@ class StationaryPointer extends Component {
                             // Mapcoordinates_Details={Object.values(this.props.stationaryPointSelected)}
                             Mapcoordinates_Details={stationaryPointSelected_array}
                         />
-                        {/*console.log(this.props.stationaryPointSelected);*/}
                     </div>
                 </div>
             </div>

@@ -1,0 +1,162 @@
+*{
+    box-sizing: border-box;
+}
+
+.newPlaylistModal{
+    position: fixed;
+    z-index: 15;
+    height: 22.2rem;
+    width: 30rem;
+    top: 10rem;
+    left: 30rem;
+    background-color: peachpuff;
+}
+
+.newPlaylistModal h3{
+    padding-left: 1rem;
+    font-weight: bold;
+    color: saddlebrown;
+    margin-top: 1rem;
+}
+.newPlaylistModal input[type="text"]{
+    height: 3rem;
+    width: 80%;
+    background-color: lightgrey;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 0 0 1rem 1rem ;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.newPlaylistModal textarea{
+    display: block;
+    resize: none;
+    height: 5rem;
+    width: 80%;
+    font-family: sans-serif;
+    background-color: lightgrey;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 1rem 0 1rem 1rem ;
+    font-size: larger;
+    font-weight: bold;
+}
+
+textarea+h3{
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+h3+select{
+    /*display: inline-block;*/
+    background-color: lightgrey;
+    /*background: radial-gradient(circle 10px,yellow 10px,darkgrey 100%);*/
+    width: 6.5rem;
+    height: 2rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: medium;
+    /*margin-left: 3rem;*/
+}
+
+select+div{
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}
+
+h3[type="cancel"]{
+    display: inline-block;
+    color: red;
+    margin: 0.8rem 2rem 0.8rem 0;
+    padding: .25rem;
+}
+h3[type="cancel"]:hover{
+    background: lightgrey;
+    cursor:pointer
+}
+
+h3[type="continue"]{
+    display: inline-block;
+    color: darkgreen;
+    margin: 0.8rem 2rem 0.8rem 0;
+    padding: .25rem;
+}
+
+h3[type="continue"]:hover{
+    background: lightgrey;
+    cursor:pointer
+}
+
+/*
+select.decorated option:hover {
+    box-shadow: 0 0 10px 100px darkgrey inset;
+}
+
+option[name='yellow']{
+    !*background-image:radial-gradient(circle 10px,yellow 10px,darkgrey 100%);*!
+    background: yellow;
+    border-radius: 5px;
+    !*background: radial-gradient(circle 10px,yellow 10px,darkgrey 100%);*!
+    height: 1.8rem;
+}
+option[name='yellow']:hover{
+    background-image:radial-gradient(circle 10px,yellow 10px,grey 100%);
+    background:radial-gradient(circle 10px,yellow 10px,grey 100%);
+    background: saddlebrown;
+}
+option[name='red']{
+    background-image:radial-gradient(circle 10px,red 10px,darkgrey 100%);
+    background:radial-gradient(circle 10px,red 10px,darkgrey 100%);
+    background: red;
+    height: 1.8rem;
+    background-color
+}
+option[name='red']:hover{
+    !*background-image:radial-gradient(circle 10px,red 10px,grey 100%);*!
+    background:radial-gradient(circle 10px,red 10px,grey 100%);
+}
+option[name='mustard']{
+    background-image:radial-gradient(circle 10px, #ffb72b 10px,darkgrey 100%);
+    height: 1.8rem;
+}
+option[name='mustard']:hover{
+    background-image:radial-gradient(circle 10px,#ffb72b 10px,grey 100%);
+}
+option[name='lightgreen']{
+    background-image:radial-gradient(circle 10px,lightgreen 10px,darkgrey 100%);
+    height: 1.8rem;
+}
+option[name='lightgreen']:hover{
+    background-image:radial-gradient(circle 10px,lightgreen 10px,grey 100%);
+}
+option[name='green']{
+    background-image:radial-gradient(circle 10px,forestgreen 10px,darkgrey 100%);
+    height: 1.8rem;
+}
+option[name='green']:hover{
+    background-image:radial-gradient(circle 10px,forestgreen 10px,grey 100%);
+}
+option[name='lightblue']{
+    background-image:radial-gradient(circle 10px,lightblue 10px,darkgrey 100%);
+    height: 1.8rem;
+}
+option[name='lightblue']:hover{
+    background-image:radial-gradient(circle 10px,lightblue 10px,grey 100%);
+}
+option[name='blue']{
+    background-image:radial-gradient(circle 10px,royalblue 10px,darkgrey 100%);
+    height: 1.8rem;
+}
+option[name='blue']:hover{
+    background-image:radial-gradient(circle 10px,royalblue 10px,grey 100%);
+}
+option[name='orange']{
+    background-image:radial-gradient(circle 10px,darkorange 10px,darkgrey 100%);
+    height: 1.8rem;
+}
+option[name='orange']:hover{
+    background-image:radial-gradient(circle 10px,darkorange 10px,grey 100%);
+}*/

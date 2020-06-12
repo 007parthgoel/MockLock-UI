@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1c9ff46b-e9f9-4fb2-b665-f33f26629cc6" name="MockLock-UI" url="http://52.66.198.160">
+        <fileTransfer host="52.66.198.160" port="22" privateKey="C:\Users\parth\Desktop\Mocklock\mockloc.pem" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

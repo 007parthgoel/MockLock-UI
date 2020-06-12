@@ -5,9 +5,9 @@ import * as endpoints from '../../../utils/endpoints';
 import {
     localConfig,
     set_cookies,
-    load_cookies,
-    remove_cookies,
-    loadAll_cookies
+    // load_cookies,
+    // remove_cookies,
+    // loadAll_cookies
 } from '../../../utils/SessionManager';
 
 // action to fetch stationary points for mobile users::

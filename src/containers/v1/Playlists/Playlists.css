@@ -39,12 +39,41 @@
 .Page_subheading_left {
     display: inline-block;
     width: 50%;
-    text-align: center;
-    text-align: left;
 }
 
 .Page_subheading_left h2 {
-    margin: 0px;
+    display: inline-block;
+    width: 50%;
+    margin: 0px 3vw 0px 0px;
+}
+
+.Page_subheading_left button{
+    /*width: 50%;*/
+    display: inline-block;
+    margin: 0px 0px 0px 3vw;
+    color: white;
+    background: saddlebrown;
+    border-radius: 8px;
+    height: 5vh;
+    font-weight: bolder;
+    font-size: medium;
+    outline: none;
+    alignment: right;
+}
+
+.Page_subheading_left button:hover{
+    color: saddlebrown;
+    background: peachpuff;
+}
+
+.newPlaylistModal{
+    position: fixed;
+    z-index: 15;
+    height: 20rem;
+    width: 20rem;
+    top: 0rem;
+    left: 20rem;
+    background-color: saddlebrown;
 }
 
 .Page_subheading_right {
@@ -119,3 +148,26 @@
     border: 2px solid black;
     border-radius: 2px;
 }
+
+.playlist_PLAYBOX{
+    display: inline-block;
+    position: absolute;
+    /*top: 60vh;*/
+    bottom: 0vh;
+    z-index: 60;
+    width: 100%;
+    /*height: 20vh;*/
+    background: forestgreen;
+    border: 2px solid black;
+    overflow-y: auto;
+    transition: height 0.6s ;
+}
+
+.playlist_PLAYBOX_close{
+    height: 3vh;
+}
+
+.playlist_PLAYBOX_open{
+    height: 30vh;
+}
+

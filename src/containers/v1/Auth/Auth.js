@@ -17,44 +17,56 @@ class Auth extends Component {
         this.setState({password: event.target.value});
     };
 
-    formSubmitHandler = () => {
+    formSubmitHandler = (event) => {
+        event.preventDefault();
         const details = {
             email: this.state.email,
             password: this.state.password
         };
         this.props.onSubmitHandler(details);
-        this.setState({password:""});
+        this.setState({password: ""});
     };
 
     render() {
 
         let error;
-        if(this.props.error) {
+        if (this.props.error) {
             // this.setState({password:""});
-            error=(<p className={classes.loginError}>Invalid Username and Password</p>);
+            error = (<p className={classes.loginError}>Invalid Username and Password</p>);
+        } else {
+            error = null;
         }
-        else {error=null;}
 
         return (
             <div className={classes.Auth}>
-                <input
-                    type={"text"}
-                    value={this.state.email}
-                    placeholder={"Email"}
-                    className={classes.Email}
-                    autoFocus={true}
-                    onChange={(event) => this.emailChangeHandler(event)}/>
-                <input
-                    type={"password"}
-                    value={this.state.password}
-                    placeholder={"Password"}
-                    className={classes.Password}
-                    onChange={(event) => this.passwordChangeHandler(event)}/>
-                {error}
-                <button
-                    className={classes.button}
-                    onClick={this.formSubmitHandler}>Submit
-                </button>
+                <form onSubmit={this.formSubmitHandler}>
+                    <div className={classes.Authdiv}>
+                        <input
+                            type={"text"}
+                            value={this.state.email}
+                            placeholder={"Email"}
+                            className={classes.Email}
+                            autoFocus={true}
+                            onChange={(event) => this.emailChangeHandler(event)}/>
+                    </div>
+                    <div className={classes.Authdiv}>
+                        <input
+                            type={"password"}
+                            value={this.state.password}
+                            placeholder={"Password"}
+                            className={classes.Password}
+                            onChange={(event) => this.passwordChangeHandler(event)}/>
+                    </div>
+                    <div className={classes.Authdiv}>
+                        {error}
+                    </div>
+                    <div className={classes.Authdiv}>
+                        <button
+                            className={classes.button}
+                            onClick={this.formSubmitHandler}>Submit
+                        </button>
+                    </div>
+                </form>
             </div>
         );
     }

@@ -228,32 +228,37 @@ const MapContainer = (props) => {
         }
     };
 
-    let marker=null;
-    let map_center_lat=28.7041;
-    let map_center_lng=77.1025;
-    if (Object.keys(props.Mapcoordinates_Details).length > 0) {
+    let marker = null;
+    let map_center_lat = 28.7041;
+    let map_center_lng = 77.1025;
+    if(props.hasOwnProperty("Mapcoordinates_Details")) {
+        if (Object.keys(props.Mapcoordinates_Details).length > 0) {
 
-        map_center_lat = props.Mapcoordinates_Details[0].Latitude  || props.Mapcoordinates_Details[0].latitude;
-        map_center_lng = props.Mapcoordinates_Details[0].Longitude || props.Mapcoordinates_Details[0].longitude;
-        console.log(map_center_lat+":::"+map_center_lng);
+            map_center_lat = props.Mapcoordinates_Details[0].Latitude || props.Mapcoordinates_Details[0].latitude;
+            map_center_lng = props.Mapcoordinates_Details[0].Longitude || props.Mapcoordinates_Details[0].longitude;
+            // console.log(map_center_lat+":::"+map_center_lng);
 
-        marker = props.Mapcoordinates_Details.map(Mapcoordinates => (
-            // <div key={Mapcoordinates.id}>
-            <Marker
-                key={Mapcoordinates.id}
-                // icon={{
-                //     url:Image,
-                //     scaledSize: new props.google.maps.Size(20,40),
-                //     shape:{
-                //         coords: [1, 1, 1, 20, 18, 20, 18, 1],
-                //         type: 'poly'
-                //     }
-                // }}
-                onClick={onMarkerClick}
-                title={'The marker`s title will appear as a tooltip.'}
-                name={Mapcoordinates.PointName || Mapcoordinates.name}
-                position={{lat: Mapcoordinates.Latitude || Mapcoordinates.latitude, lng: Mapcoordinates.Longitude || Mapcoordinates.longitude}}/>
-        ))
+            marker = props.Mapcoordinates_Details.map(Mapcoordinates => (
+                // <div key={Mapcoordinates.id}>
+                <Marker
+                    key={Mapcoordinates.id}
+                    // icon={{
+                    //     url:Image,
+                    //     scaledSize: new props.google.maps.Size(20,40),
+                    //     shape:{
+                    //         coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                    //         type: 'poly'
+                    //     }
+                    // }}
+                    onClick={onMarkerClick}
+                    title={'The marker`s title will appear as a tooltip.'}
+                    name={Mapcoordinates.PointName || Mapcoordinates.name}
+                    position={{
+                        lat: Mapcoordinates.Latitude || Mapcoordinates.latitude,
+                        lng: Mapcoordinates.Longitude || Mapcoordinates.longitude
+                    }}/>
+            ))
+        }
     }
 
     return (
@@ -293,7 +298,7 @@ const MapContainer = (props) => {
                     marker={state.activeMarker}
                     visible={state.showingInfoWindow}
                     // icon={stnPointDetails.icon}
-                    >
+                >
                     <div>
                         {/*<img src={stnPointDetails.icon} alt={"icon"} height={10} width={10}/>*/}
                         <h1>{state.selectedPlace.name}</h1>

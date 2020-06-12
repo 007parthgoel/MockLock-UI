@@ -3,11 +3,17 @@
 }
 
 .Auth {
-    display: flex;
-    width: 90%;
+    display: inline-block;
+    width: 85%;
     flex-flow: column;
     margin: 90px;
     align-items: center;
+
+}
+
+.Authdiv{
+    display: flex;
+    justify-content: center;
 }
 
 .Email {
