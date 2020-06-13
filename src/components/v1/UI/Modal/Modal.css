@@ -4,7 +4,7 @@
 
 .newPlaylistModal{
     position: fixed;
-    z-index: 15;
+    z-index: 20;
     height: 22.2rem;
     width: 30rem;
     top: 10rem;
@@ -160,3 +160,91 @@ option[name='orange']{
 option[name='orange']:hover{
     background-image:radial-gradient(circle 10px,darkorange 10px,grey 100%);
 }*/
+
+
+.HistoryPickerModal{
+    position: fixed;
+    z-index: 20;
+    height: 25rem;
+    width: 25rem;
+    top: 10rem;
+    left: 30rem;
+    background-color: peachpuff;
+}
+
+.HistoryPickerHeading{
+    display: inline-block;
+    width: 100%;
+}
+
+.HistoryPickerHeading h2{
+    display: inline-block;
+    width: 80%;
+    text-align: center;
+    color: blue;
+}
+.HistoryPickerCloseIcon{
+    position: relative;
+    left: 1rem;
+}
+.HistoryPickerSubHeading{
+    display: inline-block;
+    width: 100%;
+    height: 7.5rem;
+    margin-left: 1rem;
+}
+.HistoryPickerSubHeading h3[type="subheading1"]{
+    display: inline-block;
+    padding-left: 1rem;
+    margin: 0px;
+}
+.HistoryPickerSubHeading p{
+    display: inline-block;
+    padding-left: 1rem;
+    margin: 0px;
+    width: 100%;
+}
+.HistoryPickerSubHeading input{
+    display: inline-block;
+    width:100% ;
+}
+.HistoryPickerIcon{
+    display: inline-block;
+    margin: 1rem;
+}
+
+.HistoryPickerIcon:hover,
+.HistoryPickerCloseIcon:hover{
+    cursor: pointer;
+}
+.HistoryPickerSubHeading p+.HistoryPickerIcon{
+    margin-left: 3rem;
+}
+.executionTime,
+.accuracy{
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    position: relative;
+    bottom: 1.5rem;
+    color: chocolate;
+}
+div[type="playlistSubmit"]{
+    display: inline-block;
+    width: 100%;
+}
+div[type="playlistSubmit"] button{
+    display: inline-block;
+    width: 80%;
+    height: 3rem;
+    font-weight: bold;
+    font-size: large;
+    margin: 1rem 2rem;
+    background-color: forestgreen;
+    color: whitesmoke;
+    border-radius: 5px;
+    outline: none;
+}
+div[type="playlistSubmit"] button:hover{
+    cursor: pointer;
+}

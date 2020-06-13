@@ -12,12 +12,15 @@ import NewPlaylistGrid from '../../../../components/v1/NewPlaylist/NewPlaylistGr
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSortUp, faSortDown, faBars, faEdit} from '@fortawesome/free-solid-svg-icons'
+import Modal from '../../../../components/v1/UI/Modal/Modal';
 
 
 class NewPlaylist extends Component {
 
     state = {
         playlistPicker: "history",
+        show_historyPickerModal:false,
+        historyPickerCheckBoxID:null,
         historyPickerPointAdded: {},
         historyPickerPointRemoved: null,
     };
@@ -26,7 +29,6 @@ class NewPlaylist extends Component {
         if (load_cookies("StationaryPointer", localConfig.user_type, false) === 'mobile') {
             this.props.fetchStnryPointsFor_MOBILE_USER(load_cookies("StationaryPointer", localConfig.user_token, false));
             this.props.fetchOnePlaylistFor_MOBILE_USER(load_cookies("NewPlaylist", localConfig.playlistID_selected, false));
-
         }
 
         if (load_cookies("StationaryPointer", localConfig.user_type, false) === "admin") {
@@ -38,27 +40,40 @@ class NewPlaylist extends Component {
     render() {
         library.add(faSortUp, faSortDown, faBars, faEdit);
 
-        // const PlaylistDetailsHandler = (event) => {
-        //     this.setState({
-        //         PlaylistDetails: {
-        //             ...this.state.PlaylistDetails,
-        //             [event.target.name]: event.target.value,
-        //         }
-        //     });
-        // };
+        const historyPickerModalHandler = () => {
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    show_historyPickerModal: !prevState.show_historyPickerModal,
+                };
+            })
+        };
 
         const PlaylistPickerHandler = (name) => {
             this.setState({playlistPicker: name});
         };
 
         const HistoryPickerCheckboxAddHandler = (_id) => {
+            this.setState({historyPickerCheckBoxID:_id});
+            historyPickerModalHandler();
+        };
+
+        const historyPickerPointHandler=(info)=>{
+            let _id=this.state.historyPickerCheckBoxID;
             let point = this.props.StationaryPoints.filter(point => point._id === _id);
-            this.setState({historyPickerPointAdded: point[0]});
+            let updatedPoint={
+                ...point[0],
+                Accuracy:info.Accuracy,
+                Time:info.Time
+            };
+            this.setState({
+                historyPickerPointAdded: updatedPoint,
+                show_historyPickerModal:false,
+                historyPickerCheckBoxID:null
+            });
             setTimeout(() => {
                 this.setState({historyPickerPointAdded: {}});
             }, 100);
-
-            // console.log(this.state.historyPickerPointAdded);
         };
 
         const HistoryPickerCheckboxRemoveHandler = (_id) => {
@@ -76,13 +91,10 @@ class NewPlaylist extends Component {
             <li key={stationaryPoint._id}>
                 <HistoryPicker
                     stationaryPoint={stationaryPoint}
-                    // clicked={(_id) => {this.props.onStationaryPointSelected(_id)}}
-                    checkBoxAdd={(_id) => {
-                        HistoryPickerCheckboxAddHandler(_id)
-                    }}
-                    checkBoxRemove={(_id) => {
-                        HistoryPickerCheckboxRemoveHandler(_id)
-                    }}
+                    checkBoxAdd={(_id) => {HistoryPickerCheckboxAddHandler(_id)}}
+                    checkBoxRemove={(_id) => {HistoryPickerCheckboxRemoveHandler(_id)}}
+                    checkBoxUncheckStatus={this.state.historyPickerCheckBoxID && this.state.show_historyPickerModal===false}
+                    checkBoxStatusID={this.state.historyPickerCheckBoxID}
                 />
             </li>
         ));
@@ -94,6 +106,9 @@ class NewPlaylist extends Component {
                     <ul className={classes.StationaryPointList}>
                         {HistoryPickerGrid}
                     </ul>
+                    <Modal display={"HistoryPickerModal"} show={this.state.show_historyPickerModal} ModalClosed={historyPickerModalHandler}
+                           historyPickerPoint_SubmitInfo={(info)=>{historyPickerPointHandler(info)}}
+                           />
                 </div>
             </div>
         ) : (
@@ -106,8 +121,7 @@ class NewPlaylist extends Component {
 
                     {this.props.playlist_Selected ? <NewPlaylistGrid playlist={this.props.playlist_Selected}
                                                                      historyPickerAdded={this.state.historyPickerPointAdded}
-                                                                     historyPickerRemoved={this.state.historyPickerPointRemoved}/> :
-                        <p>hello</p>}
+                                                                     historyPickerRemoved={this.state.historyPickerPointRemoved}/> : <p>hello</p>}
                 </div>
                 <div className={classes.ListpickerContainer}>
                     <div>

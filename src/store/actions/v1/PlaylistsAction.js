@@ -112,13 +112,14 @@ export const createPlaylist_failed = (err) => {
     };
 };
 
-export const updatePlaylist = (token, id) => {
+export const updatePlaylist = (playlist,id,token) => {
     return dispatch => {
-        axios.get(endpoints.updatePlaylist + id,
-            {headers: {"x-access-token": token}})
+        console.log("success2");
+        axios.post(endpoints.updatePlaylist + id,
+            {headers: {"x-access-token": token}},playlist)
             .then(response => {
                 console.log(response.data);
-                set_cookies("playlistAction_updatePlaylist", localConfig.playlistID_selected, id, {});
+                // set_cookies("playlistAction_updatePlaylist", localConfig.playlistID_selected, id, {});
                 // set_cookies("playlistAction_updatePlaylist", localConfig.playlistID_selected, response.data.response._id, {});
                 dispatch(updatePlaylist_success(response.data));
             })
@@ -130,13 +131,14 @@ export const updatePlaylist = (token, id) => {
 };
 
 // action to fetch playlists by ID for ADMIN USER::
-export const updatePlaylist_FOR_ADMIN = (id) => {
+export const updatePlaylist_FOR_ADMIN = (playlist,id) => {
     // set_cookies("initPlaylistsbyID_FOR_ADMIN", localConfig.userID_selected, id, {});
     return dispatch => {
-        axios.get(endpoints.updatePlaylist_FOT_ADMIN + id)
+        // console.log(playlist,id);
+        axios.post(endpoints.updatePlaylist_FOT_ADMIN + id,playlist)
             .then(response => {
                 console.log(response.data);
-                set_cookies("playlistAction_updatePlaylist", localConfig.playlistID_selected, id, {});
+                // set_cookies("playlistAction_updatePlaylist", localConfig.playlistID_selected, id, {});
                 // set_cookies("playlistAction_updatePlaylist", localConfig.playlistID_selected, response.data.response._id, {});
                 dispatch(updatePlaylist_success(response.data));
             })

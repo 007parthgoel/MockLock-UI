@@ -5,6 +5,8 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSortUp, faSortDown, faBars} from '@fortawesome/free-solid-svg-icons'
 import textarea from "eslint-plugin-jsx-a11y/lib/util/implicitRoles/textarea";
+import {load_cookies, localConfig} from "../../../../utils/SessionManager";
+import * as actions from '../../../../store/actions/v1/Index';
 
 const PlaylistGrid = (props) => {
     library.add(faSortUp, faSortDown, faBars);
@@ -20,6 +22,7 @@ const PlaylistGrid = (props) => {
 
     useEffect(()=>{
         if(Object.keys(props.historyPickerAdded).length>0) {
+
             console.log(props.historyPickerAdded);
             let playlistArray=[...state.state_playlist.playlist_points];
             playlistArray.push(props.historyPickerAdded);
@@ -28,9 +31,10 @@ const PlaylistGrid = (props) => {
                 state_playlist: {
                     ...state.state_playlist,
                     points_count:state.state_playlist.points_count+1,
+                    time:(Number(state.state_playlist.time)+props.historyPickerAdded.Time).toString(),
                     playlist_points: [...playlistArray]
                 }
-            })
+            });
         }
     },[props.historyPickerAdded]);
 
@@ -39,10 +43,15 @@ const PlaylistGrid = (props) => {
             console.log(props.historyPickerRemoved);
             let playlistArray=[...state.state_playlist.playlist_points];
             playlistArray=playlistArray.filter(point=>point._id!==props.historyPickerRemoved);
+            console.log(playlistArray);
+            let totaltime=0;
+            playlistArray.forEach(point=>{totaltime+=point.Time});
+            console.log(totaltime);
             setState({
                 state_playlist: {
                     ...state.state_playlist,
                     points_count:state.state_playlist.points_count-1,
+                    time:totaltime.toString(),
                     playlist_points: [...playlistArray]
                 }
             });
@@ -96,6 +105,17 @@ const PlaylistGrid = (props) => {
         });
     };
 
+    const PlaylistSubmitHandler=()=>{
+        let playlist=state.state_playlist;
+        if (load_cookies("NewPlaylistGrid", localConfig.user_type, false) === 'mobile') {
+            props.updatePlaylist(playlist,playlist._id,load_cookies("StationaryPointer", localConfig.user_token, false));
+        }
+
+        if (load_cookies("NewPlaylistGrid", localConfig.user_type, false) === "admin") {
+            props.updatePlaylist_FOR_ADMIN(playlist,playlist._id);
+        };
+    };
+
     let list;
     let playlistInfo;
     // if (Object.keys(props.playlist_Selected).length > 0) {
@@ -118,7 +138,7 @@ const PlaylistGrid = (props) => {
                 </div>
                 <div name="colorLabel">
                     <h3>Color Label:</h3>
-                    <select name="color" value={state.state_playlist.color}
+                    <select name="color" value={state.state_playlist.label_color}
                             onChange={PlaylistDetailsHandler}>
                         <option value="yellow">yellow</option>
                         <option value="red">red</option>
@@ -186,7 +206,7 @@ const PlaylistGrid = (props) => {
                 {list}
             </div>
             {/*<div className={classes.savePlaylist}>*/}
-                <button className={classes.savePlaylist}>Save Playlist</button>
+                <button className={classes.savePlaylist} onClick={PlaylistSubmitHandler}>Save Playlist</button>
             {/*</div>*/}
         </div>
     );
@@ -204,6 +224,8 @@ const
 const
     mapDispatchToProps = dispatch => {
         return {
+            updatePlaylist_FOR_ADMIN:(playlist,id)=>dispatch(actions.updatePlaylist_FOR_ADMIN(playlist,id)),
+            updatePlaylist:(playlist,id,token)=>dispatch(actions.updatePlaylist(playlist,id,token))
             // fetchPlaylistsFor_MOBILE_USER: (token) => dispatch(actions.initPlaylists(token)),
             // onPlaylistSelected: (_id) => dispatch(actions.playlistSelected(_id)),
             // fetchPlaylistsFor_ADMIN_USER: (_id) => dispatch(actions.initPlaylistsbyID_FOR_ADMIN(_id)),

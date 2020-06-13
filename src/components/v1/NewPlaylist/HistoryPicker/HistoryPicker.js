@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './HistoryPicker.css';
 
 const historyPicker = (props) => {
 
     const [checked,setchecked]=useState(false);
+
+    useEffect(()=> {
+        if (props.checkBoxUncheckStatus && props.checkBoxStatusID === props.stationaryPoint._id) {
+            console.log(props.checkBoxUncheckStatus);
+            setchecked(false);
+        }
+    },[props.checkBoxUncheckStatus]);
 
     let hours_playback = `${(props.stationaryPoint.hours_playback / 60000).toFixed(2)} minutes`;
     let latitude_longitude = `${props.stationaryPoint.latitude} , ${props.stationaryPoint.longitude} `;
