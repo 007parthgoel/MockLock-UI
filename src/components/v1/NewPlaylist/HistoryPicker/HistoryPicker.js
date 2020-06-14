@@ -29,7 +29,7 @@ const historyPicker = (props) => {
     };
 
     return (
-        <div className={classes.stationaryPointGrid}>
+        <div className={classes.stationaryPointGrid} onClick={()=>{props.historyPointMapDisplay(props.stationaryPoint)}}>
             <div className={classes.stationaryPointGrid_top}>
                 <p className={classes.latitude_longitude}>{latitude_longitude}</p>
                 <p className={classes.timezone}>{props.stationaryPoint.timezone}</p>
@@ -38,7 +38,7 @@ const historyPicker = (props) => {
                 <h4 className={classes.address}>{props.stationaryPoint.geographic_address}</h4>
                 <div className={classes.checkboxContainer}>
                     <input type='checkbox' checked={checked}  value={props.stationaryPoint._id}
-                           onClick={checkBoxHandler}/>
+                           onChange={checkBoxHandler}/>
                 </div>
             </div>
             <div className={classes.stationaryPointGrid_bottom}>

@@ -7,12 +7,21 @@ import {faSortUp, faSortDown, faBars} from '@fortawesome/free-solid-svg-icons'
 import textarea from "eslint-plugin-jsx-a11y/lib/util/implicitRoles/textarea";
 import {load_cookies, localConfig} from "../../../../utils/SessionManager";
 import * as actions from '../../../../store/actions/v1/Index';
+import {BrowserRouter as Router, Route, Switch, Redirect,useHistory } from "react-router-dom";
+import {Link} from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
 
 const PlaylistGrid = (props) => {
     library.add(faSortUp, faSortDown, faBars);
 
     const [state, setState] = useState({
         state_playlist: {...props.playlist},
+    });
+
+    const [snackbar,setSnackbar]=useState({
+        snackbarOpen:false,
+        snackbarMsg:'',
     });
 
     useEffect(() => {
@@ -23,7 +32,7 @@ const PlaylistGrid = (props) => {
     useEffect(()=>{
         if(Object.keys(props.historyPickerAdded).length>0) {
 
-            console.log(props.historyPickerAdded);
+            // console.log(props.historyPickerAdded);
             let playlistArray=[...state.state_playlist.playlist_points];
             playlistArray.push(props.historyPickerAdded);
 
@@ -57,6 +66,10 @@ const PlaylistGrid = (props) => {
             });
         }
     },[props.historyPickerRemoved]);
+
+    const snackbarClose=()=>{
+        setSnackbar({snackbarOpen: false});
+    };
 
     const timeString_Handler = (time) => {
         let Total_time = time / 1000;
@@ -105,6 +118,7 @@ const PlaylistGrid = (props) => {
         });
     };
 
+    const history=useHistory();
     const PlaylistSubmitHandler=()=>{
         let playlist=state.state_playlist;
         if (load_cookies("NewPlaylistGrid", localConfig.user_type, false) === 'mobile') {
@@ -113,7 +127,22 @@ const PlaylistGrid = (props) => {
 
         if (load_cookies("NewPlaylistGrid", localConfig.user_type, false) === "admin") {
             props.updatePlaylist_FOR_ADMIN(playlist,playlist._id);
-        };
+        }
+        setSnackbar({snackbarOpen:true,snackbarMsg: 'Playlist Saved Successfully'});
+        setTimeout(()=>{
+            history.push("/playlists");
+        },3000);
+    };
+
+    const newPlaylistPointMapDisplay_handler=(index)=>{
+        var mapDisplaypoint=state.state_playlist.playlist_points[index];
+        // console.log(mapDisplaypoint);
+        props.newPlaylistPointMapDisplay(mapDisplaypoint);
+    };
+
+    const newPlaylistMapDisplay_handler=()=>{
+        var playlist=state.state_playlist.playlist_points;
+        props.newPlaylistMapDisplay(playlist);
     };
 
     let list;
@@ -157,30 +186,20 @@ const PlaylistGrid = (props) => {
 
         // let points_count = `${points.points_count} points`;
         list = state.state_playlist.playlist_points.map((point, index) => (
-            <div key={point._id} className={classes.list}>
+            <div key={index} className={classes.list}>
                 <div className={classes.list_arrowButton}>
-                    {(index === 0) ?
-                        <FontAwesomeIcon icon="sort-down" size='3x'
-                                         className={classes.fontIconIndex0} onClick={() => {
-                            shiftDOWN_handler(index)
-                        }}/>
+                    {(index === 0) ? ((state.state_playlist.playlist_points.length===1)?<FontAwesomeIcon icon="sort-down" size='3x' className={classes.fontIconIndex0}/>:
+                        <FontAwesomeIcon icon="sort-down" size='3x' className={classes.fontIconIndex0} onClick={() => {shiftDOWN_handler(index)}}/>)
                         : (index === (state.state_playlist.points_count - 1)) ?
-                            <FontAwesomeIcon icon="sort-up" size='3x'
-                                             className={classes.fontIconIndexLast} onClick={() => {
-                                shiftUP_handler(index)
-                            }}/>
+                            <FontAwesomeIcon icon="sort-up" size='3x' className={classes.fontIconIndexLast} onClick={() => {shiftUP_handler(index)}}/>
                             :
                             <div>
-                                < FontAwesomeIcon icon="sort-up" size='3x' transform="right-6 down-6" onClick={() => {
-                                    shiftUP_handler(index)
-                                }}/>
-                                <FontAwesomeIcon icon="sort-down" size='3x' transform="left-4 down-9" onClick={() => {
-                                    shiftDOWN_handler(index)
-                                }}/>
+                                < FontAwesomeIcon icon="sort-up" size='3x' transform="right-6 down-6" onClick={() => {shiftUP_handler(index)}}/>
+                                <FontAwesomeIcon icon="sort-down" size='3x' transform="left-4 down-9" onClick={() => {shiftDOWN_handler(index)}}/>
                             </div>
                     }
                 </div>
-                <div className={classes.list_description}>
+                <div className={classes.list_description} onClick={()=>{newPlaylistPointMapDisplay_handler(index)}}>
                     <div>
                         <div className={classes.list_description_name}>{point.PointName || point.name}</div>
                         <div className={classes.list_description_time}>{timeString_Handler(point.Time)}</div>
@@ -200,13 +219,19 @@ const PlaylistGrid = (props) => {
 
     return (
         <div className={classes.PlayListGRID}>
+            <Snackbar open={snackbar.snackbarOpen} anchorOrigin={{vertical:"bottom",horizontal:"left"}}
+                      autoHideDuration={5000} onClose={snackbarClose} message={<span id="message-id">{snackbar.snackbarMsg}</span>}
+                      action={[<IconButton key="close" aria-label="Close" color="inherit" onClick={snackbarClose}>x</IconButton>]}/>
             {playlistInfo}
             <div className={classes.ListView}>
-                {console.log(state.state_playlist.playlist_points)}
+                {/*{console.log(state.state_playlist.playlist_points)}*/}
                 {list}
             </div>
             {/*<div className={classes.savePlaylist}>*/}
+                <button className={classes.viewOnMap} onClick={newPlaylistMapDisplay_handler}>View on Map</button>
+            {/*<Link to="/playlists">*/}
                 <button className={classes.savePlaylist} onClick={PlaylistSubmitHandler}>Save Playlist</button>
+            {/*</Link>*/}
             {/*</div>*/}
         </div>
     );

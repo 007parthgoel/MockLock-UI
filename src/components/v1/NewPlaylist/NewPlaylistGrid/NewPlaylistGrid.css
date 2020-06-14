@@ -124,9 +124,10 @@ div[name="colorLabel"] .points{
 /*    border: 2px solid chocolate;*/
 /*}*/
 
+.viewOnMap,
 .savePlaylist{
     display: inline-block;
-    width: 100%;
+    width: 50%;
     height: 5.5vh;
     position: relative;
     bottom: 5px;
@@ -138,6 +139,18 @@ div[name="colorLabel"] .points{
     border-radius: 5px;
     padding: 0px;
 }
+.savePlaylist:hover{
+    background-color:slateblue;
+    color: black;
+}
+.viewOnMap{
+    background-color: orangered;
+}
+.viewOnMap:hover{
+    background-color: orange;
+    color: orangered;
+}
+
 
 .list{
     display: inline-block;
@@ -157,6 +170,7 @@ div[name="colorLabel"] .points{
     position: relative;
     left: 1vw;
     cursor: pointer;
+
 }
 .fontIconIndexLast{
     position: relative;

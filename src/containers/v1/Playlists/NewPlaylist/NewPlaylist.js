@@ -23,6 +23,7 @@ class NewPlaylist extends Component {
         historyPickerCheckBoxID:null,
         historyPickerPointAdded: {},
         historyPickerPointRemoved: null,
+        MapCoordinates_Details:[],
     };
 
     componentDidMount() {
@@ -84,6 +85,12 @@ class NewPlaylist extends Component {
             }, 100);
         };
 
+        const MapDisplayPointHandler=(point)=>{
+            let mapDisplayArray=[];
+            mapDisplayArray.push(point);
+            this.setState({MapCoordinates_Details:[...mapDisplayArray]});
+        };
+
         let EmptyData_statement = (this.props.StationaryPoints.length === 0) ?
             <p>There are no StationaryPoints</p> : null;
 
@@ -95,6 +102,7 @@ class NewPlaylist extends Component {
                     checkBoxRemove={(_id) => {HistoryPickerCheckboxRemoveHandler(_id)}}
                     checkBoxUncheckStatus={this.state.historyPickerCheckBoxID && this.state.show_historyPickerModal===false}
                     checkBoxStatusID={this.state.historyPickerCheckBoxID}
+                    historyPointMapDisplay={(historyPoint)=>MapDisplayPointHandler(historyPoint)}
                 />
             </li>
         ));
@@ -121,7 +129,10 @@ class NewPlaylist extends Component {
 
                     {this.props.playlist_Selected ? <NewPlaylistGrid playlist={this.props.playlist_Selected}
                                                                      historyPickerAdded={this.state.historyPickerPointAdded}
-                                                                     historyPickerRemoved={this.state.historyPickerPointRemoved}/> : <p>hello</p>}
+                                                                     historyPickerRemoved={this.state.historyPickerPointRemoved}
+                                                                     newPlaylistPointMapDisplay={(point)=>{MapDisplayPointHandler(point)}}
+                                                                     newPlaylistMapDisplay={(playlist)=>this.setState({MapCoordinates_Details:[...playlist]})}/>
+                                                                     : <p>hello</p>}
                 </div>
                 <div className={classes.ListpickerContainer}>
                     <div>
@@ -131,6 +142,9 @@ class NewPlaylist extends Component {
                         <h3 className={this.state.playlistPicker === "manual" ? classes.ListpickerHeading_active : classes.ListpickerHeading}
                             onClick={() => PlaylistPickerHandler("manual")}>
                             Manual Picker</h3>
+                    </div>
+                    <div className={classes.googleMaps}>
+                        <Maps Mapcoordinates_Details={this.state.MapCoordinates_Details}/>
                     </div>
                     <div className={classes.Listpicker}>
                         {picker}
