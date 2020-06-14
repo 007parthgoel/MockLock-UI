@@ -161,6 +161,9 @@ option[name='orange']:hover{
     background-image:radial-gradient(circle 10px,darkorange 10px,grey 100%);
 }*/
 
+/*****************************************************************************************************************************/
+/*****************************************************************************************************************************/
+/*****************************************************************************************************************************/
 
 .HistoryPickerModal{
     position: fixed;
@@ -204,10 +207,10 @@ option[name='orange']:hover{
     margin: 0px;
     width: 100%;
 }
-.HistoryPickerSubHeading input{
-    display: inline-block;
-    width:100% ;
-}
+/*.HistoryPickerSubHeading input{*/
+/*    display: inline-block;*/
+/*    width:100% ;*/
+/*}*/
 .HistoryPickerIcon{
     display: inline-block;
     margin: 1rem;
@@ -248,3 +251,109 @@ div[type="playlistSubmit"] button{
 div[type="playlistSubmit"] button:hover{
     cursor: pointer;
 }
+/*****************************************************************************************************************************/
+/*****************************************************************************************************************************/
+/*****************************************************************************************************************************/
+
+.ManualPickerModal{
+    position: fixed;
+    z-index: 20;
+    height: 35rem;
+    width: 35rem;
+    top: 5rem;
+    left: 20rem;
+    background-color: peachpuff;
+}
+.ManualPickerHeading{
+    display: inline-block;
+    width: 100%;
+}
+
+.ManualPickerHeading h2{
+    display: inline-block;
+    width: 80%;
+    text-align: center;
+    color: blue;
+}
+.ManualPickerCloseIcon{
+    position: relative;
+    left: 1rem;
+}
+.ManualPickerName,
+.ManualPickerDescription{
+    display: inline-block;
+    width: 100%;
+    margin: 1rem 0rem;
+}
+.ManualPickerName h3,
+.ManualPickerDescription h3{
+    display: inline-block;
+    margin: 0rem 2rem;
+    vertical-align: top;
+    /*font-size: large;*/
+}
+
+.ManualPickerName input{
+    display: inline-block;
+    margin: 0rem 1rem;
+    width: 62%;
+    height: 2rem;
+    font-size: large;
+    font-weight: bold;
+    background-color: lightgrey;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.ManualPickerDescription textarea{
+    display: inline-block;
+    resize: none;
+    height: 3rem;
+    width: 57%;
+    font-family: sans-serif;
+    background-color: lightgrey;
+    border: 1px solid green;
+    border-radius: 5px;
+    /*margin: 0.5rem 0 0.5rem 0rem ;*/
+    font-size: large;
+    font-weight: bold;
+}
+.ManualPickerSubHeading{
+    display: inline-block;
+    width: 100%;
+    height: 7.5rem;
+    margin-left: 1rem;
+}
+.ManualPickerSubHeading h3[type="subheading1"]{
+    display: inline-block;
+    padding-left: 1rem;
+    margin: 0px;
+}
+.ManualPickerSubHeading p{
+    display: inline-block;
+    padding-left: 1rem;
+    margin: 0px;
+    width: 100%;
+}
+
+.ManualPickerIcon{
+    display: inline-block;
+    margin: 1rem;
+}
+
+.ManualPickerIcon:hover,
+.ManualPickerCloseIcon:hover{
+    cursor: pointer;
+}
+.ManualPickerSubHeading p+.ManualPickerIcon{
+    margin-left: 6rem;
+}
+.ManualExecutionTime,
+.ManualAccuracy{
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    position: relative;
+    bottom: 1.5rem;
+    color: chocolate;
+}
+

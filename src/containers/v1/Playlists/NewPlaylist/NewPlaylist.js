@@ -8,6 +8,7 @@ import {load_cookies, localConfig} from "../../../../utils/SessionManager";
 import * as actions from "../../../../store/actions/v1/Index";
 // import StationaryPoinGrid from "../../../../components/v1/StationaryPoint/StationaryPointGrid";
 import HistoryPicker from "../../../../components/v1/NewPlaylist/HistoryPicker/HistoryPicker";
+import ManualPicker from '../../../../components/v1/NewPlaylist/ManualPicker/ManualPicker';
 import NewPlaylistGrid from '../../../../components/v1/NewPlaylist/NewPlaylistGrid/NewPlaylistGrid';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -20,9 +21,12 @@ class NewPlaylist extends Component {
     state = {
         playlistPicker: "history",
         show_historyPickerModal:false,
+        show_manualPickerModal:false,
         historyPickerCheckBoxID:null,
         historyPickerPointAdded: {},
         historyPickerPointRemoved: null,
+        manualPickerPointAdded:{},
+        manualPickerPointSubmit:{},
         MapCoordinates_Details:[],
     };
 
@@ -46,6 +50,15 @@ class NewPlaylist extends Component {
                 return {
                     ...prevState,
                     show_historyPickerModal: !prevState.show_historyPickerModal,
+                };
+            })
+        };
+
+        const manualPickerModalHandler=()=>{
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    show_manualPickerModal: !prevState.show_manualPickerModal,
                 };
             })
         };
@@ -107,6 +120,9 @@ class NewPlaylist extends Component {
             </li>
         ));
 
+
+
+
         const picker = (this.state.playlistPicker === "history") ? (
             <div>
                 <div className={classes.StationaryPointGrid}>
@@ -114,22 +130,66 @@ class NewPlaylist extends Component {
                     <ul className={classes.StationaryPointList}>
                         {HistoryPickerGrid}
                     </ul>
-                    <Modal display={"HistoryPickerModal"} show={this.state.show_historyPickerModal} ModalClosed={historyPickerModalHandler}
+                    <Modal display={"HistoryPickerModal"}
+                           show={this.state.show_historyPickerModal}
+                           ModalClosed={historyPickerModalHandler}
                            historyPickerPoint_SubmitInfo={(info)=>{historyPickerPointHandler(info)}}
                            />
                 </div>
             </div>
         ) : (
-            <div>manual picker</div>
+            <div className={classes.ManualPickerGrid}>
+                <ManualPicker plotLatLog={(LatLogCoords)=>{MapDisplayPointHandler(LatLogCoords)}}
+                              AddLatLog={(point)=>{manualPickerPointAddHandler(point)}}
+                              // resetLatLog={(Object.keys(this.state.manualPickerPointAdded).length>0) && this.state.show_manualPickerModal===false}
+                              resetLatLog={this.state.show_manualPickerModal}
+                />
+                <Modal display={"ManualPickerModal"}
+                       show={this.state.show_manualPickerModal}
+                       ModalClosed={manualPickerModalHandler}
+                       manualPickerPoint_SubmitInfo={(info)=>{manualPickerModalSubmitHandler(info)}}/>
+            </div>
         );
+
+
+
+        const manualPickerPointAddHandler=(point)=>{
+            this.setState({manualPickerPointAdded:{...point}});
+            manualPickerModalHandler();
+            // setTimeout(()=>{
+            //     manualPickerModalSubmitHandler();
+            // },1000);
+        };
+
+        const manualPickerModalSubmitHandler=(info)=>{
+            let manualPickerPoint={
+                ...this.state.manualPickerPointAdded,
+                name:info.PointName,
+                description:info.PointDescription,
+                Time:info.Time,
+                Accuracy:info.Accuracy,
+            };
+            this.setState({
+                manualPickerPointSubmit:manualPickerPoint,
+                show_manualPickerModal:false,
+                // manualPickerPointAdded:{},
+            });
+            setTimeout(()=>{
+                this.setState({
+                    manualPickerPointSubmit:{}
+                })
+            },300);
+        };
 
         return (
             <div className={classes.newPlaylistsPage}>
+                {console.log(this.state.manualPickerPointAdded)}
                 <div className={classes.newPlaylistContainer}>
 
                     {this.props.playlist_Selected ? <NewPlaylistGrid playlist={this.props.playlist_Selected}
                                                                      historyPickerAdded={this.state.historyPickerPointAdded}
                                                                      historyPickerRemoved={this.state.historyPickerPointRemoved}
+                                                                     manualPickerAdded={this.state.manualPickerPointSubmit}
                                                                      newPlaylistPointMapDisplay={(point)=>{MapDisplayPointHandler(point)}}
                                                                      newPlaylistMapDisplay={(playlist)=>this.setState({MapCoordinates_Details:[...playlist]})}/>
                                                                      : <p>hello</p>}
@@ -149,8 +209,6 @@ class NewPlaylist extends Component {
                     <div className={classes.Listpicker}>
                         {picker}
                     </div>
-                    {/*<Maps/>*/}
-                    {/*<Maps Mapcoordinates_Details={{}}/>*/}
                 </div>
             </div>
         );

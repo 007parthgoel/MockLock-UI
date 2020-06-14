@@ -15,6 +15,7 @@ import {
     faPlusSquare as faPlusSquareRegular,
     faTimesCircle as faTimesCircleRegular,
 } from '@fortawesome/free-regular-svg-icons';
+import ManualPicker from "../../NewPlaylist/ManualPicker/ManualPicker";
 
 class Modal extends Component {
 
@@ -25,7 +26,13 @@ class Modal extends Component {
             label_color: '',
         },
         HistoryModalExecTime:5,
-        HistoryModalAccuracy:10
+        HistoryModalAccuracy:10,
+        ManualPickerDetails:{
+            name:'',
+            description:''
+        },
+        ManualModalExecTime:5,
+        ManualModalAccuracy:10,
     };
 
     render() {
@@ -145,6 +152,7 @@ class Modal extends Component {
                 Accuracy:this.state.HistoryModalAccuracy,
             };
             this.props.historyPickerPoint_SubmitInfo(info);
+            // this.props.manualPickerPoint_SubmitInfo(info);
             this.setState({HistoryModalExecTime:5,HistoryModalAccuracy:10.00});
         };
 
@@ -186,6 +194,116 @@ class Modal extends Component {
                 </div>
             )
         }
+
+        const ManualPickerModalSubmitHandler=()=>{
+            let info={
+                Time:this.state.ManualModalExecTime*1000,
+                Accuracy:this.state.ManualModalAccuracy,
+                PointName:this.state.ManualPickerDetails.name,
+                PointDescription:this.state.ManualPickerDetails.description
+            };
+            // this.props.historyPickerPoint_SubmitInfo(info);
+            this.props.manualPickerPoint_SubmitInfo(info);
+            this.setState({
+                ManualModalExecTime:5,
+                ManualModalAccuracy:10.00,
+                ManualPickerDetails:{
+                    name:'',
+                    description:'',
+                }
+            });
+        };
+
+        const ManualPickerDetailsHandler=(event)=>{
+            this.setState({ManualPickerDetails:{
+                ...this.state.ManualPickerDetails,
+                    [event.target.name]:event.target.value
+                }
+            });
+        };
+
+        let ManualPickerExecTime=`${Math.floor(this.state.ManualModalExecTime/60)} min : ${Math.floor(this.state.ManualModalExecTime%60)} sec`;
+        const ManualModalExecTime_Handler=(type)=>{
+            (type==="sub")? this.setState(prevState=>{
+                return{
+                    ...prevState,
+                    ManualModalExecTime:prevState.ManualModalExecTime-1}
+            }):this.setState(prevState=>{
+                return{
+                    ...prevState,
+                    ManualModalExecTime:prevState.ManualModalExecTime+1}
+            })
+        };
+
+        const MinimumManualModalExecutionTimeHandler=()=>{
+            alert("Minimum required time is 2 seconds");
+            this.setState({ManualModalExecTime:5});
+        };
+
+        let ManualPickerAccuracy=`${(this.state.ManualModalAccuracy).toFixed(2)} meters`;
+        const ManualModalAccuracy_Handler=(type)=>{
+            (type==="sub")? this.setState(prevState=>{
+                return{
+                    ...prevState,
+                    ManualModalAccuracy:prevState.ManualModalAccuracy-.01}
+            }):this.setState(prevState=>{
+                return{
+                    ...prevState,
+                    ManualModalAccuracy:prevState.ManualModalAccuracy+.01}
+            })
+        };
+
+        if (this.props.display ==='ManualPickerModal') {
+            modalData = (
+                <div
+                    className={classes.ManualPickerModal}
+                    style={{
+                        transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                        opacity: this.props.show ? '1' : '0'
+                    }}>
+                    <div className={classes.ManualPickerHeading}>
+                        <h2>Location From History</h2>
+                        <FontAwesomeIcon icon={['fas', 'times-circle']} size='2x'
+                                         className={classes.ManualPickerCloseIcon} onClick={ModalClosedHandler}/>
+                    </div>
+                    <div className={classes.ManualPickerName}>
+                        <h3>Name:</h3>
+                        <input type="text" name="name" value={this.state.ManualPickerDetails.name} placeholder="Enter Name"
+                               onChange={ManualPickerDetailsHandler}   autoComplete="off" autoFocus/>
+                    </div>
+                    <div className={classes.ManualPickerDescription}>
+                        <h3>Description:</h3>
+                        <textarea name="description" value={this.state.ManualPickerDetails.description} placeholder="Enter Description"
+                                  onChange={ManualPickerDetailsHandler}/>
+                        {/*<input name="description" value={this.state.ManualPickerDetails.description} placeholder="Enter Description"
+                        onChange={ManualPickerDetailsHandler}/>*/}
+                    </div>
+                    <div className={classes.ManualPickerSubHeading}>
+                        <h3 type="subheading1">Set Execution Time</h3>
+                        <p>Set running time for execution of this point</p>
+                        <FontAwesomeIcon icon={['far', 'minus-square']} size='3x' className={classes.ManualPickerIcon}
+                                         onClick={()=>{ManualModalExecTime_Handler("sub")}}/>
+                        <h3 className={classes.ManualExecutionTime}>{ManualPickerExecTime}</h3>
+                        {(this.state.ManualModalExecTime<2) ? MinimumManualModalExecutionTimeHandler():null}
+                        <FontAwesomeIcon icon={['far', 'plus-square']} size='3x' className={classes.ManualPickerIcon}
+                                         onClick={()=>{ManualModalExecTime_Handler("add")}}/>
+                    </div>
+                    <div className={classes.ManualPickerSubHeading}>
+                        <h3 type="subheading1">Set Accuracy</h3>
+                        <p>Set accuracy of this point</p>
+                        <FontAwesomeIcon icon={['far', 'minus-square']} size='3x' className={classes.ManualPickerIcon}
+                                         onClick={()=>{ManualModalAccuracy_Handler("sub")}}/>
+                        <h3 className={classes.ManualAccuracy}>{ManualPickerAccuracy}</h3>
+                        <FontAwesomeIcon icon={['far', 'plus-square']} size='3x' className={classes.ManualPickerIcon}
+                                         onClick={()=>{ManualModalAccuracy_Handler("add")}}/>
+                    </div>
+                    <div type="playlistSubmit">
+                        <button onClick={ManualPickerModalSubmitHandler}>Add to Playlist</button>
+                    </div>
+                </div>
+            )
+        }
+
 
         return (
             <Fragment>

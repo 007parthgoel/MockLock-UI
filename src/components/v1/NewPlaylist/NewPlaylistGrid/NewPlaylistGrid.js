@@ -67,6 +67,24 @@ const PlaylistGrid = (props) => {
         }
     },[props.historyPickerRemoved]);
 
+    useEffect(()=>{
+        if(Object.keys(props.manualPickerAdded).length>0) {
+
+            console.log(props.manualPickerAdded);
+            let playlistArray=[...state.state_playlist.playlist_points];
+            playlistArray.push(props.manualPickerAdded);
+
+            setState({
+                state_playlist: {
+                    ...state.state_playlist,
+                    points_count:state.state_playlist.points_count+1,
+                    time:(Number(state.state_playlist.time)+props.manualPickerAdded.Time).toString(),
+                    playlist_points: [...playlistArray]
+                }
+            });
+        }
+    },[props.manualPickerAdded]);
+
     const snackbarClose=()=>{
         setSnackbar({snackbarOpen: false});
     };

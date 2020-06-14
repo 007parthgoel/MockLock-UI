@@ -7,7 +7,7 @@ const historyPicker = (props) => {
 
     useEffect(()=> {
         if (props.checkBoxUncheckStatus && props.checkBoxStatusID === props.stationaryPoint._id) {
-            console.log(props.checkBoxUncheckStatus);
+            // console.log(props.checkBoxUncheckStatus);
             setchecked(false);
         }
     },[props.checkBoxUncheckStatus]);

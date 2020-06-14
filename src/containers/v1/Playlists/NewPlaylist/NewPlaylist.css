@@ -11,7 +11,7 @@
     justify-content: space-between;
 }
 
-.newPlaylistContainer{
+.newPlaylistContainer {
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -20,7 +20,7 @@
     border-radius: 5px;
 }
 
-.ListpickerContainer{
+.ListpickerContainer {
     display: inline-block;
     vertical-align: top;
     /*margin-left: 10rem;*/
@@ -30,7 +30,7 @@
     border-radius: 5px;
 }
 
-.newPlaylistInfo{
+.newPlaylistInfo {
     display: inline-block;
     width: 100%;
     height: 29%;
@@ -39,7 +39,7 @@
     border-radius: 5px;
 }
 
-.newPlaylistInfo h3{
+.newPlaylistInfo h3 {
     display: inline-block;
     width: 10%;
     padding-left: 1rem;
@@ -48,22 +48,23 @@
     margin-top: 1rem;
 }
 
-.newPlaylistInfo input[type="text"]{
+.newPlaylistInfo input[type="text"] {
     height: 2rem;
     width: 77%;
     background-color: lightgrey;
     border: 1px solid green;
     border-radius: 5px;
-    margin: 1rem 3rem 0.5rem 1rem ;
+    margin: 1rem 3rem 0.5rem 1rem;
     font-size: medium;
     font-weight: bold;
 }
 
-div[name="Description"]{
+div[name="Description"] {
     display: inline-block;
     width: 100%;
 }
-div[name="Description"] h3{
+
+div[name="Description"] h3 {
     display: inline-block;
     width: 19%;
     padding-left: 1rem;
@@ -73,7 +74,7 @@ div[name="Description"] h3{
     margin-top: 0.5rem;
 }
 
-div[name="Description"] textarea{
+div[name="Description"] textarea {
     display: inline-block;
     resize: none;
     height: 3rem;
@@ -82,17 +83,17 @@ div[name="Description"] textarea{
     background-color: lightgrey;
     border: 1px solid green;
     border-radius: 5px;
-    margin: 0.5rem 0 0.5rem 0rem ;
+    margin: 0.5rem 0 0.5rem 0rem;
     font-size: large;
     font-weight: bold;
 }
 
-div[name="colorLabel"]{
+div[name="colorLabel"] {
     display: inline-block;
     width: 100%;
 }
 
-div[name="colorLabel"] h3{
+div[name="colorLabel"] h3 {
     display: inline-block;
     width: 20%;
     padding-left: 1rem;
@@ -103,7 +104,7 @@ div[name="colorLabel"] h3{
     /*margin-top: 0.5rem;*/
 }
 
-div[name="colorLabel"] select{
+div[name="colorLabel"] select {
     /*display: inline-block;*/
     background-color: lightgrey;
     /*background: radial-gradient(circle 10px,yellow 10px,darkgrey 100%);*/
@@ -115,15 +116,15 @@ div[name="colorLabel"] select{
     font-size: medium;
 }
 
-.ListpickerHeading{
+.ListpickerHeading {
     display: inline-block;
     width: 50%;
     /*height: 10%;*/
     /*background-color: lightgreen;*/
     text-align: center;
-    margin: 0rem 0rem 5px 0rem ;
+    margin: 0rem 0rem 5px 0rem;
     color: darkorchid;
-    font-size:x-large;
+    font-size: x-large;
     font-weight: bolder;
     cursor: pointer;
 }
@@ -133,9 +134,9 @@ div[name="colorLabel"] select{
     width: 50%;
     /*height: 10%;*/
     text-align: center;
-    margin: 0rem 0rem 5px 0rem ;
+    margin: 0rem 0rem 5px 0rem;
     color: darkorchid;
-    font-size:x-large;
+    font-size: x-large;
     font-weight: bolder;
     border: 2px solid coral;
     box-shadow: 2px 4px slategrey;
@@ -152,7 +153,7 @@ div[name="colorLabel"] select{
     border-radius: 2px;
 }
 
-.Listpicker{
+.Listpicker {
     display: inline-block;
     position: relative;
     bottom: 0.3rem;
@@ -162,7 +163,8 @@ div[name="colorLabel"] select{
     border-radius: 5px;
     /*background-color: saddlebrown;*/
 }
-.StationaryPointGrid{
+
+.StationaryPointGrid {
     list-style: none;
     display: inline-block;
     /*position: relative;*/
@@ -175,12 +177,19 @@ div[name="colorLabel"] select{
     border-radius: 2px;
 }
 
-.StationaryPointList{
+.StationaryPointList {
     list-style: none;
     display: inline-block;
     height: 100%;
     width: 100%;
     margin: 2px;
     padding: 0px;
+}
+
+.ManualPickerGrid {
+    display: inline-block;
+    height: 43.2vh;
+    width: 100%;
+    border-radius: 2px;
 }
 
