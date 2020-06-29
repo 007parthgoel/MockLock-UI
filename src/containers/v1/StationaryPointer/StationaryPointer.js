@@ -14,8 +14,18 @@ import {
     // loadAll_cookies
 } from '../../../utils/SessionManager';
 import {Link} from "react-router-dom";
+import Spinner from '../../../components/v1/UI/Spinner/Spinner';
+import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
+import Modal from "../../../components/v1/UI/Modal/Modal";
 
 class StationaryPointer extends Component {
+
+    state={
+        show_StnryPointDeleteAlertModal: false,
+        StnryPointDeleteID:null,
+        snackbarOpen: false,
+    };
 
     componentDidMount() {
         if (load_cookies("StationaryPointer", localConfig.user_type, false) === 'mobile') {
@@ -30,26 +40,83 @@ class StationaryPointer extends Component {
 
     render() {
 
-        let EmptyData_statement = (this.props.StationaryPoints.length === 0) ? <p>There are no StationaryPoints</p> : null;
+        let StationaryPointGrid=(this.props.error)? <p>Points can't be loaded</p>:<Spinner/>;
 
-        const StationaryPointGrid = this.props.StationaryPoints.map(stationaryPoint => (
-            <li key={stationaryPoint._id}>
-                <StationaryPoinGrid
-                    stationaryPoint={stationaryPoint}
-                    clicked={(_id) => {
-                        this.props.onStationaryPointSelected(_id);
-                    }}/>
+        if(this.props.StationaryPoints){
+            StationaryPointGrid = this.props.StationaryPoints.map(stationaryPoint => (
+                <li key={stationaryPoint._id}>
+                    <StationaryPoinGrid
+                        stationaryPoint={stationaryPoint}
+                        clicked={(_id) => {this.props.onStationaryPointSelected(_id);}}
+                        deleteIconClicked={(id) => {stationaryPointDeleteModalHandler(id)}}/>
+                </li>
+            ));
 
-            </li>
-        ));
+            if(this.props.StationaryPoints.length===0){
+                StationaryPointGrid= <p>There are no Points</p>;
+            }
+        }
 
         let stationaryPointSelected_array=[];
         if(Object.keys(this.props.stationaryPointSelected).length>0){
             stationaryPointSelected_array[0]=this.props.stationaryPointSelected;
         }
 
+        const stationaryPointDeleteModalHandler = (id) => {
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    show_StnryPointDeleteAlertModal: !prevState.show_StnryPointDeleteAlertModal,
+                    StnryPointDeleteID:id,
+                }
+            });
+        };
+
+        const stationaryPointDeleteModalCloseHandler=()=>{
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    show_StnryPointDeleteAlertModal: !prevState.show_StnryPointDeleteAlertModal,
+                    StnryPointDeleteID:null,
+                }
+            });
+        };
+
+        const stationaryPointDeleteHandler=()=>{
+            let id=this.state.StnryPointDeleteID;
+
+            if (load_cookies("Playlists", localConfig.user_type, false) === 'mobile') {
+                this.props.deleteStnryPointFor_MOBILE_USER(id,load_cookies("Playlists", localConfig.user_token, false));
+                console.log("playlist deleted");
+            }
+
+            if (load_cookies("Playlists", localConfig.user_type, false) === "admin") {
+                this.props.deleteStnryPointFor_ADMIN_USER(id);
+                console.log("playlist deleted");
+            }
+            stationaryPointDeleteModalCloseHandler();
+            this.setState({
+                snackbarOpen: true,
+                // snackbarMsg: 'Playlist Saved Successfully'
+            });
+            setTimeout(()=>{
+                window.location.reload();
+            },1000);
+        };
+
+        const snackbarClose = () => {
+            this.setState({snackbarOpen: false});
+        };
+
+
         return (
             <div className={classes.StationPointerPage}>
+                <Snackbar open={this.state.snackbarOpen} anchorOrigin={{vertical: "bottom", horizontal: "left"}}
+                          autoHideDuration={5000} onClose={snackbarClose}
+                    // message={<span id="message-id">{this.state.snackbarMsg}</span>}
+                          message={<span id="message-id">StationaryPoint Deleted</span>}
+                          action={[<IconButton key="close" aria-label="Close" color="inherit"
+                                               onClick={snackbarClose}>x</IconButton>]}/>
                 <div className={classes.Page_headings}>
                     <Link to="/stationary-pointer">
                         <h1 className={classes.Page_headings_active}>History</h1>
@@ -71,10 +138,14 @@ class StationaryPointer extends Component {
                 <div className={classes.Grid_MapContainer}>
                     <div className={classes.Grid}>
                         <div className={classes.GridList}>
-                            {EmptyData_statement}
+                            {/*{EmptyData_statement}*/}
                             <ul className={classes.Lists}>
                                 {StationaryPointGrid}
                             </ul>
+                            <Modal display={"StationaryPointDeleteAlertModal"}
+                                   show={this.state.show_StnryPointDeleteAlertModal}
+                                   ModalClosed={stationaryPointDeleteModalCloseHandler}
+                                   deleteStationaryPoint={stationaryPointDeleteHandler}/>
                         </div>
                         {/*<div className={classes.SubMenu}>*/}
                         {/*    <p>submenu</p>*/}
@@ -107,6 +178,8 @@ const
             fetchStnryPointsFor_MOBILE_USER: (token) => dispatch(actions.initStationaryPoints(token)),
             onStationaryPointSelected: (_id) => dispatch(actions.stationaryPointSelected(_id)),
             fetchStnryPointsFor_ADMIN_USER: (_id) => dispatch(actions.initStationaryPointsbyID_FOR_ADMIN(_id)),
+            deleteStnryPointFor_MOBILE_USER:(_id,token)=>dispatch(actions.deleteStationaryPoint(_id,token)),
+            deleteStnryPointFor_ADMIN_USER:(_id)=>dispatch(actions.deleteStationaryPoint_FOR_ADMIN(_id)),
         };
     };
 

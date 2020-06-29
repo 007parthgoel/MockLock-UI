@@ -13,11 +13,14 @@ import Modal from '../../../components/v1/UI/Modal/Modal'
 import {
     localConfig,
     // set_cookies,
-    load_cookies,
+    load_cookies, set_cookies,
     // remove_cookies,
     // loadAll_cookies
 } from '../../../utils/SessionManager';
+import Spinner from '../../../components/v1/UI/Spinner/Spinner';
 import textarea from "eslint-plugin-jsx-a11y/lib/util/implicitRoles/textarea";
+import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
 
 // const Maps = asyncComponent(() => {
 //     return import('../../../components/v1/UI/GoogleMaps/GoogleMaps');
@@ -29,6 +32,9 @@ class Playlists extends Component {
     state = {
         show_playlist_PLAYBOX: false,
         show_newPlaylistModal: false,
+        show_playlistDeleteAlertModal: false,
+        playlistDeleteID:null,
+        snackbarOpen: false,
     };
 
     componentDidMount() {
@@ -87,22 +93,85 @@ class Playlists extends Component {
             )
         }
 
-        let EmptyData_statement = (this.props.playlists.length === 0) ? <p>There are no playlist</p> : null;
+        let GridOFPlaylists = (this.props.error) ? <p>List can't be loaded</p> : <Spinner/>;
 
-        let GridOFPlaylists = this.props.playlists.map(playlist => (
-            <li key={playlist._id}>
-                <PlaylistsGrid
-                    playlist={playlist}
-                    clicked={(_id) => {
-                        this.props.onPlaylistSelected(_id);
-                    }}
-                    playlistid={playlist._id}
-                />
-            </li>
-        ));
+        if (this.props.playlists) {
+            GridOFPlaylists = this.props.playlists.map(playlist => (
+                <li key={playlist._id}>
+                    <PlaylistsGrid
+                        playlist={playlist}
+                        clicked={(_id) => {this.props.onPlaylistSelected(_id);}}
+                        playlistid={playlist._id}
+                        deleteIconClicked={(id) => {playlistDeleteModalHandler(id)}}
+                        editIconClicked={(id)=>{editPlaylistHandler(id)}}
+                    />
+                </li>
+            ));
+
+            if (this.props.playlists.length === 0) {
+                GridOFPlaylists = <p>There are no playlist</p>
+            }
+        }
+
+        const editPlaylistHandler = (id) => {
+            set_cookies("playlist",localConfig.playlistID_selected,id,{});
+        };
+
+        const playlistDeleteModalHandler = (id) => {
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    show_playlistDeleteAlertModal: !prevState.show_playlistDeleteAlertModal,
+                    playlistDeleteID:id,
+                }
+            });
+        };
+
+        const playlistDeleteModalCloseHandler=()=>{
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    show_playlistDeleteAlertModal: !prevState.show_playlistDeleteAlertModal,
+                    playlistDeleteID:null,
+                }
+            });
+        };
+
+        const playlistDeleteHandler=()=>{
+            let id=this.state.playlistDeleteID;
+
+            if (load_cookies("Playlists", localConfig.user_type, false) === 'mobile') {
+                this.props.deletePlaylistFor_MOBILE_USER(id,load_cookies("Playlists", localConfig.user_token, false));
+                console.log("playlist deleted");
+            }
+
+            if (load_cookies("Playlists", localConfig.user_type, false) === "admin") {
+                // this.props.deletePlaylistFor_ADMIN_USER(load_cookies("Playlists", localConfig.userID_selected, false));
+                this.props.deletePlaylistFor_ADMIN_USER(id);
+                console.log("playlist deleted");
+            }
+            playlistDeleteModalCloseHandler();
+            this.setState({
+                snackbarOpen: true,
+                // snackbarMsg: 'Playlist Saved Successfully'
+            });
+            setTimeout(()=>{
+                window.location.reload();
+            },1000);
+        };
+
+        const snackbarClose = () => {
+            this.setState({snackbarOpen: false});
+        };
 
         return (
             <div className={classes.PlaylistsPage}>
+                <Snackbar open={this.state.snackbarOpen} anchorOrigin={{vertical: "bottom", horizontal: "left"}}
+                          autoHideDuration={5000} onClose={snackbarClose}
+                          // message={<span id="message-id">{this.state.snackbarMsg}</span>}
+                          message={<span id="message-id">Playlist Deleted</span>}
+                          action={[<IconButton key="close" aria-label="Close" color="inherit"
+                                               onClick={snackbarClose}>x</IconButton>]}/>
                 <div className={classes.Page_headings}>
                     <Link to="/stationary-pointer">
                         <h1>History</h1>
@@ -119,7 +188,8 @@ class Playlists extends Component {
                         <button onClick={newPlaylistModalHandler}>Create Playlist</button>
                         {/*</Link>*/}
 
-                        <Modal display={"newPlaylistModal"} show={this.state.show_newPlaylistModal} ModalClosed={newPlaylistModalHandler}/>
+                        <Modal display={"newPlaylistModal"} show={this.state.show_newPlaylistModal}
+                               ModalClosed={newPlaylistModalHandler}/>
 
                     </div>
                     <div className={classes.Page_subheading_right}>
@@ -130,10 +200,14 @@ class Playlists extends Component {
                 <div className={classes.Grid_MapContainer}>
                     <div className={classes.Grid}>
                         <div className={classes.GridList}>
-                            {EmptyData_statement}
+                            {/*{error_statement}*/}
                             <ul className={classes.Lists}>
                                 {GridOFPlaylists}
                             </ul>
+                            <Modal display={"playlistDeleteAlertModal"}
+                                   show={this.state.show_playlistDeleteAlertModal}
+                                   ModalClosed={playlistDeleteModalCloseHandler}
+                                   deletePlaylist={playlistDeleteHandler}/>
                         </div>
                     </div>
                     <div className={classes.googleMaps}>
@@ -165,6 +239,8 @@ const
             fetchPlaylistsFor_MOBILE_USER: (token) => dispatch(actions.initPlaylists(token)),
             onPlaylistSelected: (_id) => dispatch(actions.playlistSelected(_id)),
             fetchPlaylistsFor_ADMIN_USER: (_id) => dispatch(actions.initPlaylistsbyID_FOR_ADMIN(_id)),
+            deletePlaylistFor_MOBILE_USER:(_id,token)=>dispatch(actions.deletePlaylist(_id,token)),
+            deletePlaylistFor_ADMIN_USER:(_id)=>dispatch(actions.deletePlaylist_FOR_ADMIN(_id)),
         };
     };
 

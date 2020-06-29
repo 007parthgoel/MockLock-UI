@@ -88,8 +88,8 @@
 }
 
 .playlistButton:hover {
-    background: coral;
     color: white;
+    background-color: chocolate;
     cursor: pointer;
 }
 

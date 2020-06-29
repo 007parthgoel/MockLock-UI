@@ -356,4 +356,59 @@ div[type="playlistSubmit"] button:hover{
     bottom: 1.5rem;
     color: chocolate;
 }
-
+/**********************************************************************************************************************************/
+.AlertMessageModal{
+    position: fixed;
+    z-index: 20;
+    height: 10rem;
+    width: 30rem;
+    top: 15rem;
+    left: 30rem;
+    background-color: peachpuff;
+}
+.AlertMessageModal h2{
+    display: block;
+    margin: 1.5rem ;
+    text-align: center;
+    color: saddlebrown;
+    font-weight: bold;
+    /*font-size: 2;*/
+}
+.AlertMessageModal button[type="cancel"]{
+    display: inline-block;
+    margin: 1rem 5rem;
+    background-color: lightgreen;
+    color: darkgreen;
+    height: 2rem;
+    width: 5rem;
+    font-size: large;
+    font-weight: bolder;
+    border: 1px solid slateblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px saddlebrown;
+    outline: none;
+}
+.AlertMessageModal button[type="cancel"]:hover{
+    cursor: pointer;
+    color: whitesmoke;
+    background-color: darkgreen;
+}
+.AlertMessageModal button[type="yes"]{
+    display: inline-block;
+    margin: 1rem 3rem;
+    background-color: orange;
+    color: orangered;
+    height: 2rem;
+    width: 5rem;
+    font-size: large;
+    font-weight: bolder;
+    border: 1px solid slateblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px saddlebrown;
+    outline: none;
+}
+.AlertMessageModal button[type="yes"]:hover{
+    cursor: pointer;
+    color: whitesmoke;
+    background-color: orangered;
+}

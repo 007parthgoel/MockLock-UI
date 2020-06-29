@@ -6,7 +6,9 @@ export {
 export{
     initStationaryPoints,
     initStationaryPointsbyID_FOR_ADMIN,
-    stationaryPointSelected
+    stationaryPointSelected,
+    deleteStationaryPoint_FOR_ADMIN,
+    deleteStationaryPoint,
 } from './StationaryPointsAction';
 
 export{
@@ -18,7 +20,9 @@ export{
     updatePlaylist,
     updatePlaylist_FOR_ADMIN,
     fetchOnePlaylist,
-    fetchOnePlaylist_FOR_ADMIN
+    fetchOnePlaylist_FOR_ADMIN,
+    deletePlaylist_FOR_ADMIN,
+    deletePlaylist,
 } from './PlaylistsAction';
 
 export {

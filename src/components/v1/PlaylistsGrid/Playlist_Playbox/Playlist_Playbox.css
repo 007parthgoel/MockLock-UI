@@ -68,10 +68,12 @@
 }
 .heading_time{
     color: orange;
+    text-align: center;
 }
 
 .heading_points{
     color: mediumpurple;
+    text-align: center;
 }
 
 .SaveButton{

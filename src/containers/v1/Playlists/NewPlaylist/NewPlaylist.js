@@ -14,6 +14,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSortUp, faSortDown, faBars, faEdit} from '@fortawesome/free-solid-svg-icons'
 import Modal from '../../../../components/v1/UI/Modal/Modal';
+import Spinner from '../../../../components/v1/UI/Spinner/Spinner';
 
 
 class NewPlaylist extends Component {
@@ -23,7 +24,7 @@ class NewPlaylist extends Component {
         show_historyPickerModal:false,
         show_manualPickerModal:false,
         historyPickerCheckBoxID:null,
-        historyPickerPointAdded: {},
+        historyPickerPointSubmit: {},
         historyPickerPointRemoved: null,
         manualPickerPointAdded:{},
         manualPickerPointSubmit:{},
@@ -81,12 +82,12 @@ class NewPlaylist extends Component {
                 Time:info.Time
             };
             this.setState({
-                historyPickerPointAdded: updatedPoint,
+                historyPickerPointSubmit: updatedPoint,
                 show_historyPickerModal:false,
                 historyPickerCheckBoxID:null
             });
             setTimeout(() => {
-                this.setState({historyPickerPointAdded: {}});
+                this.setState({historyPickerPointSubmit: {}});
             }, 100);
         };
 
@@ -104,29 +105,31 @@ class NewPlaylist extends Component {
             this.setState({MapCoordinates_Details:[...mapDisplayArray]});
         };
 
-        let EmptyData_statement = (this.props.StationaryPoints.length === 0) ?
-            <p>There are no StationaryPoints</p> : null;
+        let HistoryPickerGrid=(this.props.error)?<p>Can't load History points</p>:<Spinner/>;
+        if(this.props.StationaryPoints && this.props.playlist_Selected) {
 
-        const HistoryPickerGrid = this.props.StationaryPoints.map(stationaryPoint => (
-            <li key={stationaryPoint._id}>
-                <HistoryPicker
-                    stationaryPoint={stationaryPoint}
-                    checkBoxAdd={(_id) => {HistoryPickerCheckboxAddHandler(_id)}}
-                    checkBoxRemove={(_id) => {HistoryPickerCheckboxRemoveHandler(_id)}}
-                    checkBoxUncheckStatus={this.state.historyPickerCheckBoxID && this.state.show_historyPickerModal===false}
-                    checkBoxStatusID={this.state.historyPickerCheckBoxID}
-                    historyPointMapDisplay={(historyPoint)=>MapDisplayPointHandler(historyPoint)}
-                />
-            </li>
-        ));
-
-
-
+            HistoryPickerGrid = this.props.StationaryPoints.map(stationaryPoint => (
+                <li key={stationaryPoint._id}>
+                    <HistoryPicker
+                        stationaryPoint={stationaryPoint}
+                        checkBoxAdd={(_id) => {HistoryPickerCheckboxAddHandler(_id)}}
+                        checkBoxRemove={(_id) => {HistoryPickerCheckboxRemoveHandler(_id)}}
+                        checkBoxUncheckStatus={this.state.historyPickerCheckBoxID && this.state.show_historyPickerModal === false}
+                        checkBoxStatusID={this.state.historyPickerCheckBoxID}
+                        historyPointMapDisplay={(historyPoint) => MapDisplayPointHandler(historyPoint)}
+                        playlist={this.props.playlist_Selected}
+                    />
+                </li>
+            ));
+             if(this.props.StationaryPoints.length === 0){
+                 HistoryPickerGrid=<p>There are no StationaryPoints</p>
+             }
+        }
 
         const picker = (this.state.playlistPicker === "history") ? (
             <div>
                 <div className={classes.StationaryPointGrid}>
-                    {EmptyData_statement}
+                    {/*{EmptyData_statement}*/}
                     <ul className={classes.StationaryPointList}>
                         {HistoryPickerGrid}
                     </ul>
@@ -181,18 +184,23 @@ class NewPlaylist extends Component {
             },300);
         };
 
+        let NewPlaylistData=(this.props.PlaylistError)? <p>New playlist can't be loaded</p>:<Spinner/>;
+        if(Object.keys(this.props.playlist_Selected).length>0){
+            NewPlaylistData= <NewPlaylistGrid playlist={this.props.playlist_Selected}
+                                              historyPickerAdded={this.state.historyPickerPointSubmit}
+                                              historyPickerRemoved={this.state.historyPickerPointRemoved}
+                                              manualPickerAdded={this.state.manualPickerPointSubmit}
+                                              newPlaylistPointMapDisplay={(point)=>{MapDisplayPointHandler(point)}}
+                                              newPlaylistMapDisplay={(playlist)=>this.setState({MapCoordinates_Details:[...playlist]})}
+                                              historyPointDeleteCheckboxStatus={(id)=>this.setState({historyPickerCheckBoxID:id})}
+            />
+        }
+
         return (
             <div className={classes.newPlaylistsPage}>
-                {console.log(this.state.manualPickerPointAdded)}
+                {/*{console.log(this.state.manualPickerPointAdded)}*/}
                 <div className={classes.newPlaylistContainer}>
-
-                    {this.props.playlist_Selected ? <NewPlaylistGrid playlist={this.props.playlist_Selected}
-                                                                     historyPickerAdded={this.state.historyPickerPointAdded}
-                                                                     historyPickerRemoved={this.state.historyPickerPointRemoved}
-                                                                     manualPickerAdded={this.state.manualPickerPointSubmit}
-                                                                     newPlaylistPointMapDisplay={(point)=>{MapDisplayPointHandler(point)}}
-                                                                     newPlaylistMapDisplay={(playlist)=>this.setState({MapCoordinates_Details:[...playlist]})}/>
-                                                                     : <p>hello</p>}
+                    {NewPlaylistData}
                 </div>
                 <div className={classes.ListpickerContainer}>
                     <div>
@@ -219,7 +227,8 @@ const
     mapStateToProps = state => {
         return {
             StationaryPoints: state.stationaryPointer.stationaryPoints,
-            // error: state.stationaryPointer.error,
+            StationaryPointerError: state.stationaryPointer.error,
+            PlaylistError: state.playlists.error,
             // stationaryPointSelected: state.stationaryPointer.stationaryPointSelected,
             playlist_Selected: state.playlists.playlistSelected,
         };

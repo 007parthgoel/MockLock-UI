@@ -5,6 +5,7 @@ import {Link, Redirect} from "react-router-dom"
 import classes from './Users.css'
 import UserList from '../../../components/v1/UserList/UserList';
 import * as actions from '../../../store/actions/v1/Index';
+import Spinner from "../../../components/v1/UI/Spinner/Spinner";
 
 class Users extends Component {
 
@@ -25,12 +26,15 @@ class Users extends Component {
 
     render() {
 
-        const userList = this.props.usersList.map(user => (
-            <UserList key={user._id}
-                      userDetails={user}
-                      stnPointButtonClicked={(_id) => this.stnPointBtnClickHandler(_id)}
-                      playlistButtonClicked={(_id) => this.playlistBtnClickHandler(_id)}/>
-        ));
+        let userList=(this.props.error)?<p>UserList can't be loaded</p>:<Spinner/>;
+        if(this.props.usersList) {
+            userList = this.props.usersList.map(user => (
+                <UserList key={user._id}
+                          userDetails={user}
+                          stnPointButtonClicked={(_id) => this.stnPointBtnClickHandler(_id)}
+                          playlistButtonClicked={(_id) => this.playlistBtnClickHandler(_id)}/>
+            ));
+        }
 
 
         return (
@@ -48,6 +52,7 @@ class Users extends Component {
 const mapStateToProps = state => {
     return {
         usersList: state.usersList.Users_list,
+        error:state.usersList.error,
     }
 };
 

@@ -109,6 +109,8 @@ div[name="colorLabel"] .points{
     padding-left: 2rem;
 }
 
+/*******************************************************************************************************************/
+
 .ListView{
     display: inline-block;
     height: 60vh;
@@ -170,7 +172,18 @@ div[name="colorLabel"] .points{
     position: relative;
     left: 1vw;
     cursor: pointer;
-
+}
+.fontIconUPMidIndex{
+    position: relative;
+    left: 1vw;
+    top: 3vh;
+    cursor: pointer;
+}
+.fontIconDownMidIndex{
+    position: relative;
+    right: 1vw;
+    top: 5vh;
+    cursor: pointer;
 }
 .fontIconIndexLast{
     position: relative;
@@ -212,8 +225,29 @@ div[name="colorLabel"] .points{
     width: 95%;
     color: orange;
     font-weight: bold;
-    padding-bottom: 4vh;
+    padding-bottom: 1vh;
+    /*border-bottom: 1px solid lightgray;*/
+}
+.list_MenuOptions{
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    padding: 1vh 2vh;
     border-bottom: 1px solid lightgray;
+}
+.list_MenuOptions div{
+    display: inline-block;
+    margin: 0px 2vh;
+}
+.list_MenuOptions div[type="edit"]{
+    color: purple;
+}
+.list_MenuOptions div[type="delete"]{
+    color: orangered;
+}
+.list_MenuOptions div[type="edit"]:hover,
+.list_MenuOptions div[type="delete"]:hover{
+    color:black;
 }
 /*::-webkit-scrollbar {*/
 /*    width: 5px;*/

@@ -23,11 +23,14 @@ const Playlist_Playbox = (props) => {
     const timeString_Handler = (time) => {
         let Total_time = time / 1000;
         let hours_playback;
-        if (Total_time > 3600) {
-            hours_playback = `${Math.floor(Total_time / 3600)}:${Math.floor((Total_time % 3600) / 60)}:${Total_time % 60} sec`;
+        if (Total_time >= 3600) {
+            hours_playback = `${Math.floor(Total_time / 3600)}:${Math.floor((Total_time % 3600) / 60)}:${Total_time % 60} hours`;
         }
-        if (0 < Total_time && Total_time < 3600) {
-            hours_playback = ` 00:${Math.floor((Total_time % 3600) / 60)}:${Total_time % 60} sec`;
+        if (60 <= Total_time && Total_time < 3600) {
+            hours_playback = ` 00:${Math.floor((Total_time % 3600) / 60)}:${Total_time % 60} minutes`;
+        }
+        if(0<Total_time && Total_time<60){
+            hours_playback=` 00:00:${Total_time%60} seconds`;
         }
         return hours_playback;
     };
@@ -63,7 +66,7 @@ const Playlist_Playbox = (props) => {
 
         let points_count = `${points.points_count} points`;
         let list = state.state_playlist.playlist_points.map((point, index) => (
-            <div key={point.id} className={classes.list}>
+            <div key={index} className={classes.list}>
                 <div className={classes.list_arrowButton}>
                     {(index === 0) ?
                         <FontAwesomeIcon icon="sort-down" size='3x'

@@ -27,11 +27,16 @@ export const fetchAllPlaylistsbyID='http://52.66.198.160:3018/api/v1/adminPanel/
 export const fetchAllPlaylists_FOR_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/get-all-playlists';
 
 //this api is to create playlist via userid in params(only for Master admin)
-export const createPlaylist_FOT_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/create-playlist/';
+export const createPlaylist_FOR_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/create-playlist/';
 //this api is to create playlist via _id in params(only for admin)
-export const updatePlaylist_FOT_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/update-playlist/';
+export const updatePlaylist_FOR_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/update-playlist/';
 
 //this api is to create playlist(for users)
 export const createPlaylist='http://52.66.198.160:3018/api/v1/adminPanel/User/create-playlist';
 //this api is to create playlist via _id in param (for user)
 export const updatePlaylist='http://52.66.198.160:3018/api/v1/adminPanel/User/update-playlist/';
+
+export const deletePlaylist_FOR_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/delete-playlist/';
+export const deleteStationaryPoint_FOR_ADMIN='http://52.66.198.160:3018/api/v1/adminPanel/MasterAdmin/delete-StationaryPoint/';
+export const deletePlaylist='http://52.66.198.160:3018/api/v1/adminPanel/User/delete-playlist/';
+export const deleteStationaryPoint='http://52.66.198.160:3018/api/v1/adminPanel/User/delete-StationaryPoint/';

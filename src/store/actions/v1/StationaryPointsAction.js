@@ -62,5 +62,31 @@ export const stationaryPointSelected = (_id) => {
     }
 };
 
+export const deleteStationaryPoint_FOR_ADMIN=(id)=>{
+    return dispatch=>{
+        axios.get(endpoints.deleteStationaryPoint_FOR_ADMIN+id)
+            .then(response=>{
+                console.log(response.data);
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+    }
+};
+
+export const deleteStationaryPoint=(id,token)=>{
+    return dispatch=>{
+        axios.get(endpoints.deleteStationaryPoint+id,
+            {headers: {"x-access-token": token}})
+            .then(response=>{
+                console.log(response.data);
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+    }
+};
+
+
 
 

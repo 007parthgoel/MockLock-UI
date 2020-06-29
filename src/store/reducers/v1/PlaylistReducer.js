@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actions/v1/ActionTypes';
 
 const initialState={
-    playlists: [],
+    playlists: null,
     playlistSelected:{},
     error: false,
 };

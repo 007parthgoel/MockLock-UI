@@ -228,6 +228,9 @@ const MapContainer = (props) => {
         }
     };
 
+    //to bound center and zoom of google maps
+    let bounds = new props.google.maps.LatLngBounds();
+
     let marker = null;
     let map_center_lat = 28.7041;
     let map_center_lng = 77.1025;
@@ -238,10 +241,24 @@ const MapContainer = (props) => {
             map_center_lng = props.Mapcoordinates_Details[0].Longitude || props.Mapcoordinates_Details[0].longitude;
             // console.log(map_center_lat+":::"+map_center_lng);
 
-            marker = props.Mapcoordinates_Details.map(Mapcoordinates => (
+            props.Mapcoordinates_Details.map(Mapcoordinates=>{
+                // bounds.extend({
+                //     lat: Mapcoordinates.Latitude || Mapcoordinates.latitude,
+                //     lng: Mapcoordinates.Longitude || Mapcoordinates.longitude
+                // });
+
+                bounds.extend(new props.google.maps.LatLng(
+                    Mapcoordinates.Latitude || Mapcoordinates.latitude,
+                    Mapcoordinates.Longitude || Mapcoordinates.longitude
+                ));
+            });
+
+            marker = props.Mapcoordinates_Details.map((Mapcoordinates,index) => (
                 // <div key={Mapcoordinates.id}>
+
                 <Marker
-                    key={Mapcoordinates._id}
+                    // key={Mapcoordinates._id}
+                    key={index}
                     // icon={{
                     //     url:Image,
                     //     scaledSize: new props.google.maps.Size(20,40),
@@ -268,6 +285,7 @@ const MapContainer = (props) => {
                  onClick={onMapClicked}
                  zoom={10}
                  style={mapStyles}
+                 bounds={bounds}
                  initialCenter={{
                      lat: map_center_lat || 28.7041,
                      lng: map_center_lng || 77.1025,

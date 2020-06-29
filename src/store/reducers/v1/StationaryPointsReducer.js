@@ -2,7 +2,7 @@ import * as actionTypes from '../../actions/v1/ActionTypes';
 // import {stationaryPointSelected} from "../../actions/v1";
 
 const initialState={
-    stationaryPoints: [],
+    stationaryPoints: null,
     stationaryPointSelected:{},
     error: false,
     // ADMIN:{

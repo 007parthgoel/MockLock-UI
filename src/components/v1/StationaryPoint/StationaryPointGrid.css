@@ -50,11 +50,11 @@
     width: 90%;
 }
 
-.stationaryPointMenu {
-    display: inline-block;
-    width: auto;
-    justify-items: center;
-}
+/*.stationaryPointMenu {*/
+/*    display: inline-block;*/
+/*    width: auto;*/
+/*    justify-items: center;*/
+/*}*/
 
 .dot {
     display: flex;
@@ -88,4 +88,26 @@
     margin: 3px 0px;
     font-weight: bold;
     font-size: 20px;
+}
+
+.list_MenuOptions{
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    padding: 1vh 2vh;
+    border-bottom: 1px solid lightgray;
+}
+.list_MenuOptions div{
+    display: inline-block;
+    margin: 0px 2vh;
+}
+.list_MenuOptions div[type="edit"]{
+    color: purple;
+}
+.list_MenuOptions div[type="delete"]{
+    color: orangered;
+}
+.list_MenuOptions div[type="edit"]:hover,
+.list_MenuOptions div[type="delete"]:hover{
+    color:black;
 }
