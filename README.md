@@ -8,7 +8,8 @@ The web-application is an exention to MockLoc Android application which is avail
 4. Raise queries regarding test cases which will be answered by Admin.
 
 The APIs for application are based on Node.js which allow users to manage the application data.
-Below are some screenshots from the web-application.
+
+Below are some designs of web-application.
 
 ![WhatsApp Image 2020-04-30 at 11 28 40 AM (2)](https://user-images.githubusercontent.com/51164334/113882937-584ceb00-97db-11eb-947e-162b6905bbae.jpeg)
 ![WhatsApp Image 2020-04-30 at 11 28 42 AM](https://user-images.githubusercontent.com/51164334/113882940-5a16ae80-97db-11eb-90e9-5562c789479c.jpeg)
