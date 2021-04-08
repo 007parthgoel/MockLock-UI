@@ -70,7 +70,8 @@ class App extends Component {
         }
 
         return (
-            <Router basename="/v1">
+            <Router>
+//             <Router basename="/v1">
                 {/* <div className={classes.App}> */}
                 <div>
                     <SideBar/>
